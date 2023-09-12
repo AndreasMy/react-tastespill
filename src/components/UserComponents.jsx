@@ -21,6 +21,7 @@ const CreateUser = () => {
     <div>
       {users.length < 1 ? (
         <>
+          <h3>Users</h3>
           <label htmlFor="createUser">New player: </label>
           <form onSubmit={handleSubmit}>
             <input
@@ -39,8 +40,7 @@ const CreateUser = () => {
           <ul>
             {users.map((user) => (
               <li key={user.id}>
-                {" "}
-                <UserSelectBtn userId={user.id} userName={user.userName} />{" "}
+                <UserSelectBtn userId={user.id} userName={user.userName} />
               </li>
             ))}
           </ul>
