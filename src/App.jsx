@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import ThemeSelection from "./components/ThemeSelection";
 import GamePage from "./components/GamePage";
+import themes from './data/elementData'
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
           setSelectedTheme={setSelectedTheme}
         />
       ) : (
-        <ThemeSelection onSelectTheme={handleSelectTheme} />
+        <ThemeSelection themes={themes} onSelectTheme={handleSelectTheme} />
       )}
     </div>
   );
