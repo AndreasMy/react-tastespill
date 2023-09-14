@@ -1,50 +1,79 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from "react";
-import { handleCreateUser } from "../data/userData";
-import { users } from "../data/userData";
+import { useState, useContext } from 'react';
+import createUser from '../data/userData';
+import { UsersContext } from '../data/userData';
 
-const UserSelectBtn = ({ userName }) => {
-  return <button> {userName}</button>;
-};
+const UserSubmit = () => {
+  const [userName, setUserName] = useState('');
+  const { users, setUsers } = useContext(UsersContext);
+  console.log(users);
 
-const CreateUser = () => {
-  const [userName, setUserName] = useState("");
+  function handleCreateUser(userScore, userName) {
+    const newUser = createUser(userScore, userName);
+    setUsers([...users, newUser]);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     handleCreateUser(0, userName);
-    setUserName("");
+    setUserName('');
   };
 
   return (
     <div>
+      <label htmlFor='createUser'>New player: </label>
+      <form onSubmit={handleSubmit}>
+        <input
+          id='createUser'
+          placeholder='Your Name'
+          type='text'
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        ></input>
+        <button type='submit'>Submit</button>
+      </form>
+    </div>
+  );
+};
+
+const UserSelect = ({ setSelectedUser }) => {
+  const { users } = useContext(UsersContext);
+
+  return (
+    <>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>
+            <button onClick={() => setSelectedUser(user.userName)}>
+              {user.userName}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+};
+
+const CreateUser = ({
+  userName,
+  setUserName,
+  selectedUser,
+  setSelectedUser,
+}) => {
+  const { users } = useContext(UsersContext);
+  return (
+    <div>
       {users.length < 1 ? (
-        <>
-          <h3>Users</h3>
-          <label htmlFor="createUser">New player: </label>
-          <form onSubmit={handleSubmit}>
-            <input
-              id="createUser"
-              placeholder="Your Name"
-              type="text"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-            ></input>
-            <button type="submit">Submit</button>
-          </form>
-        </>
+        <UserSubmit userName={userName} setUserName={setUserName} />
       ) : (
-        <>
-          <h3>Users</h3>
-          <ul>
-            {users.map((user) => (
-              <li key={user.id}>
-                <UserSelectBtn userId={user.id} userName={user.userName} />
-              </li>
-            ))}
-          </ul>
-        </>
+        <div>
+          <UserSelect
+            selectedUser={selectedUser}
+            setSelectedUser={setSelectedUser}
+          />
+          <UserSubmit userName={userName} setUserName={setUserName} />
+        </div>
       )}
     </div>
   );

@@ -1,7 +1,7 @@
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid';
+import React from 'react';
 
-export const users = [];
-
+export const UsersContext = React.createContext();
 
 const createUser = (userScore, userName) => {
   const id = uuidv4();
@@ -14,11 +14,5 @@ const createUser = (userScore, userName) => {
   };
   return user;
 };
-
-export function handleCreateUser(userScore, userName) {
-    const newUser = createUser(userScore, userName)
-    users.push(newUser);
-    console.log(users)
-}
 
 export default createUser;
