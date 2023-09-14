@@ -3,16 +3,6 @@ import { useState } from 'react';
 import { shuffleArray } from '../helpers/utils';
 
 const DisplayWord = ({ words, currentIndex, inputValue }) => {
-  const [...splitWord] = words[currentIndex];
-  //
-
-  let inputString = inputValue;
-  inputString = inputString.replace(/\s/g, '');
-  const [...inputToCompare] = inputString;
-
-  console.log(splitWord);
-  console.log(inputToCompare);
-
   return (
     <>
       <h3>{words[currentIndex]}</h3>
@@ -21,9 +11,33 @@ const DisplayWord = ({ words, currentIndex, inputValue }) => {
   );
 };
 
-const GameInput = ({ onSpacePress, inputValue, setInputvalue }) => {
+const GameInput = ({
+  onSpacePress,
+  inputValue,
+  setInputvalue,
+  words,
+  currentIndex,
+  score,
+  setScore,
+}) => {
+  function scoreCounter() {
+    const [...splitWord] = words[currentIndex];
+
+    let inputString = inputValue;
+    inputString = inputString.replace(/\s/g, '');
+    const [...inputToCompare] = inputString;
+    console.log(inputString, words[currentIndex]);
+
+    if (inputString == words[currentIndex]) {
+      setScore(score + 50);
+    }
+    console.log(splitWord);
+    console.log(inputToCompare);
+  }
+
   const handleKeyDown = (event) => {
     if (event.keyCode === 32) {
+      scoreCounter();
       onSpacePress();
       setInputvalue('');
     }
@@ -50,6 +64,7 @@ const GamePage = ({ theme, setSelectedTheme, selectedUser }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [inputValue, setInputvalue] = useState('');
   const [shuffledWords, setShuffledWords] = useState([]);
+  const [score, setScore] = useState(0);
 
   function handleStartBtn() {
     setGameStart(true);
@@ -71,22 +86,24 @@ const GamePage = ({ theme, setSelectedTheme, selectedUser }) => {
       {gameStart ? (
         <div>
           <h2>Game on!</h2>
-          <DisplayWord
-            inputValue={inputValue}
-            words={shuffledWords}
-            currentIndex={currentIndex}
-          />
+          <p>User: {selectedUser ? selectedUser.userName : 'None'} </p>
+          <p> Score: {score ? score : 0}</p>
+          <DisplayWord words={shuffledWords} currentIndex={currentIndex} />
           <GameInput
             onSpacePress={handleSpacePress}
+            words={shuffledWords}
+            currentIndex={currentIndex}
             inputValue={inputValue}
             setInputvalue={setInputvalue}
+            score={score}
+            setScore={setScore}
           />
         </div>
       ) : (
         <div>
           <button onClick={handleBackBtn}>Back</button>
           <h2>Game Page</h2>
-          <p>Selected user: {selectedUser ? selectedUser.userName : 'None'} </p>
+          <p>User: {selectedUser ? selectedUser.userName : 'None'} </p>
           <p>Selected Theme: {theme.name}</p>
           <button onClick={handleStartBtn}>Start</button>
         </div>
