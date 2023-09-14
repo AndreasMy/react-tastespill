@@ -16,3 +16,4 @@ export function shuffleArray(array) {
 
   return shuffledArray;
 }
+
