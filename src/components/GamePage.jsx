@@ -1,22 +1,17 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import { shuffleArray } from "../helpers/utils";
+import { useState } from 'react';
+import { shuffleArray } from '../helpers/utils';
 
 const DisplayWord = ({ words, currentIndex, inputValue }) => {
   const [...splitWord] = words[currentIndex];
   //
 
-  let inputString = inputValue
-  inputString = inputString.replace(/\s/g, '')
-  const [...inputToCompare] = inputString
+  let inputString = inputValue;
+  inputString = inputString.replace(/\s/g, '');
+  const [...inputToCompare] = inputString;
 
-
-
-  
   console.log(splitWord);
-  console.log(inputToCompare)
-
-
+  console.log(inputToCompare);
 
   return (
     <>
@@ -30,7 +25,7 @@ const GameInput = ({ onSpacePress, inputValue, setInputvalue }) => {
   const handleKeyDown = (event) => {
     if (event.keyCode === 32) {
       onSpacePress();
-      setInputvalue("");
+      setInputvalue('');
     }
   };
 
@@ -38,7 +33,7 @@ const GameInput = ({ onSpacePress, inputValue, setInputvalue }) => {
     <div>
       <form onSubmit={(e) => e.preventDefault()}>
         <input
-          type="text"
+          type='text'
           value={inputValue}
           onChange={(e) => {
             setInputvalue(e.target.value);
@@ -50,18 +45,16 @@ const GameInput = ({ onSpacePress, inputValue, setInputvalue }) => {
   );
 };
 
-const GamePage = ({ theme, setSelectedTheme }) => {
+const GamePage = ({ theme, setSelectedTheme, selectedUser }) => {
   const [gameStart, setGameStart] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [inputValue, setInputvalue] = useState("");
+  const [inputValue, setInputvalue] = useState('');
   const [shuffledWords, setShuffledWords] = useState([]);
-  //  const [formData, setFormData] = useState("");
 
   function handleStartBtn() {
     setGameStart(true);
     const shuffledArray = shuffleArray(theme.words);
     setShuffledWords(shuffledArray);
-    // console.log(shuffledArray);
   }
 
   function handleSpacePress() {
@@ -93,6 +86,7 @@ const GamePage = ({ theme, setSelectedTheme }) => {
         <div>
           <button onClick={handleBackBtn}>Back</button>
           <h2>Game Page</h2>
+          <p>Selected user: {selectedUser ? selectedUser.userName : 'None'} </p>
           <p>Selected Theme: {theme.name}</p>
           <button onClick={handleStartBtn}>Start</button>
         </div>

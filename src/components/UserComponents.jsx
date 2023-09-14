@@ -6,13 +6,14 @@ import { UsersContext } from '../data/userData';
 
 const UserSubmit = () => {
   const [userName, setUserName] = useState('');
-  const { users, setUsers } = useContext(UsersContext);
-  console.log(users);
+  const { setUsers, setSelectedUser } = useContext(UsersContext);
 
-  function handleCreateUser(userScore, userName) {
+  const handleCreateUser = (userScore, userName) => {
     const newUser = createUser(userScore, userName);
-    setUsers([...users, newUser]);
-  }
+    setUsers((prevUsers) => [...prevUsers, newUser]);
+    setSelectedUser(newUser);
+    console.log(newUser);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,7 +46,11 @@ const UserSelect = ({ setSelectedUser }) => {
       <ul>
         {users.map((user) => (
           <li key={user.id}>
-            <button onClick={() => setSelectedUser(user.userName)}>
+            <button
+              onClick={() => {
+                setSelectedUser(user);
+              }}
+            >
               {user.userName}
             </button>
           </li>
@@ -62,10 +67,16 @@ const CreateUser = ({
   setSelectedUser,
 }) => {
   const { users } = useContext(UsersContext);
+  console.log(selectedUser);
   return (
     <div>
+      <p>Selected user: {selectedUser ? selectedUser.userName : 'None'}</p>
       {users.length < 1 ? (
-        <UserSubmit userName={userName} setUserName={setUserName} />
+        <UserSubmit
+          userName={userName}
+          setUserName={setUserName}
+          setSelectedUser={setSelectedUser}
+        />
       ) : (
         <div>
           <UserSelect

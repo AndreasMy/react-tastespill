@@ -15,7 +15,9 @@ function App() {
     setSelectedTheme(theme);
   };
   return (
-    <UsersContext.Provider value={{ users, setUsers }}>
+    <UsersContext.Provider
+      value={{ users, setUsers, selectedUser, setSelectedUser }}
+    >
       <div>
         {selectedTheme ? (
           <div>
@@ -23,6 +25,8 @@ function App() {
               theme={selectedTheme}
               selectedTheme={selectedTheme}
               setSelectedTheme={setSelectedTheme}
+              selectedUser={selectedUser}
+              setSelectedUser={setSelectedUser}
             />
           </div>
         ) : (
