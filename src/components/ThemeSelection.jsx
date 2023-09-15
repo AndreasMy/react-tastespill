@@ -1,18 +1,21 @@
 /* eslint-disable react/prop-types */
+import React from 'react';
 
 
-const ThemeSelectBtn = ({ theme, onSelect }) => {
-  return <button onClick={() => onSelect(theme)}>{theme.name}</button>;
+export const TopicContext = React.createContext();
+
+const TopicSelectBtn = ({ topic, onSelect }) => {
+  return <button onClick={() => onSelect(topic)}>{topic.name}</button>;
 };
 
-const ThemeSelection = ({ themes, onSelectTheme }) => {
+const TopicSelection = ({ topics, onSelectTopic }) => {
   return (
     <div>
-      {themes.map((theme) => (
-        <ThemeSelectBtn key={theme.id} theme={theme} onSelect={onSelectTheme} />
+      {topics.map((topic) => (
+        <TopicSelectBtn key={topic.id} topic={topic} onSelect={onSelectTopic} />
       ))}
     </div>
   );
 };
 
-export default ThemeSelection;
+export default TopicSelection;

@@ -4,7 +4,7 @@ import hostJSON from "./Høst.json";
 import oktoberFestJSON from "./Oktoberfest.json";
 
 
-const themes = [
+const topics = [
   {
     id: "breastCancerAwarenessBtn",
     name: "Breast Cancer Awareness",
@@ -27,4 +27,4 @@ const themes = [
   },
 ];
 
-export default themes;
+export default topics;

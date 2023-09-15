@@ -1,47 +1,37 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { shuffleArray } from '../helpers/utils';
+import { UsersContext } from '../data/userData';
+import { TopicContext } from './ThemeSelection';
+import useGameLogic from '../helpers/hooks';
 
-const DisplayWord = ({ words, currentIndex, inputValue }) => {
+import React from 'react';
+
+export const GameContext = React.createContext();
+
+const DisplayWord = () => {
+  const { shuffledWords, currentIndex, inputValue } = useContext(GameContext);
+
   return (
     <>
-      <h3>{words[currentIndex]}</h3>
+      <h3>{shuffledWords[currentIndex]}</h3>
       <h4>{inputValue}</h4>
     </>
   );
 };
 
-const GameInput = ({
-  onSpacePress,
-  inputValue,
-  setInputvalue,
-  words,
-  currentIndex,
-  score,
-  setScore,
-}) => {
-  function scoreCounter() {
-    const [...splitWord] = words[currentIndex];
+const GameInput = () => {
+  const { inputValue, setInputValue, setCurrentIndex } =
+    useContext(GameContext);
+  const { scoreCounter } = useGameLogic();
 
-    let inputString = inputValue;
-    inputString = inputString.replace(/\s/g, '');
-    const [...inputToCompare] = inputString;
-    console.log(inputString, words[currentIndex]);
-
-    if (inputString == words[currentIndex]) {
-      setScore(score + 50);
-    }
-    console.log(splitWord);
-    console.log(inputToCompare);
-  }
-
-  const handleKeyDown = (event) => {
-    if (event.keyCode === 32) {
+  function handleKeyDown(event) {
+    if (event.key === ' ') {
       scoreCounter();
-      onSpacePress();
-      setInputvalue('');
+      setCurrentIndex((prevIndex) => prevIndex + 1);
+      setInputValue('');
     }
-  };
+  }
 
   return (
     <div>
@@ -50,7 +40,7 @@ const GameInput = ({
           type='text'
           value={inputValue}
           onChange={(e) => {
-            setInputvalue(e.target.value);
+            setInputValue(e.target.value);
           }}
           onKeyDown={handleKeyDown}
         />
@@ -59,26 +49,21 @@ const GameInput = ({
   );
 };
 
-const GamePage = ({ theme, setSelectedTheme, selectedUser }) => {
+const GamePage = () => {
+  const { selectedTopic, setSelectedTopic } = useContext(TopicContext);
+  const { selectedUser } = useContext(UsersContext);
   const [gameStart, setGameStart] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [inputValue, setInputvalue] = useState('');
-  const [shuffledWords, setShuffledWords] = useState([]);
-  const [score, setScore] = useState(0);
+
+  const { score, setShuffledWords } = useContext(GameContext);
 
   function handleStartBtn() {
     setGameStart(true);
-    const shuffledArray = shuffleArray(theme.words);
+    const shuffledArray = shuffleArray(selectedTopic.words);
     setShuffledWords(shuffledArray);
   }
 
-  function handleSpacePress() {
-    setCurrentIndex((prevIndex) => prevIndex + 1);
-    console.log(currentIndex + 1);
-  }
-
   function handleBackBtn() {
-    setSelectedTheme(null);
+    setSelectedTopic(null);
   }
 
   return (
@@ -88,23 +73,15 @@ const GamePage = ({ theme, setSelectedTheme, selectedUser }) => {
           <h2>Game on!</h2>
           <p>User: {selectedUser ? selectedUser.userName : 'None'} </p>
           <p> Score: {score ? score : 0}</p>
-          <DisplayWord words={shuffledWords} currentIndex={currentIndex} />
-          <GameInput
-            onSpacePress={handleSpacePress}
-            words={shuffledWords}
-            currentIndex={currentIndex}
-            inputValue={inputValue}
-            setInputvalue={setInputvalue}
-            score={score}
-            setScore={setScore}
-          />
+          <DisplayWord />
+          <GameInput />
         </div>
       ) : (
         <div>
           <button onClick={handleBackBtn}>Back</button>
           <h2>Game Page</h2>
           <p>User: {selectedUser ? selectedUser.userName : 'None'} </p>
-          <p>Selected Theme: {theme.name}</p>
+          <p>Selected selectedTopic: {selectedTopic.name}</p>
           <button onClick={handleStartBtn}>Start</button>
         </div>
       )}

@@ -38,8 +38,8 @@ const UserSubmit = () => {
   );
 };
 
-const UserSelect = ({ setSelectedUser }) => {
-  const { users } = useContext(UsersContext);
+const UserSelect = () => {
+  const { users, setSelectedUser } = useContext(UsersContext);
 
   return (
     <>
@@ -60,30 +60,18 @@ const UserSelect = ({ setSelectedUser }) => {
   );
 };
 
-const CreateUser = ({
-  userName,
-  setUserName,
-  selectedUser,
-  setSelectedUser,
-}) => {
-  const { users } = useContext(UsersContext);
+const CreateUser = ({ userName }) => {
+  const { users, selectedUser } = useContext(UsersContext);
   console.log(selectedUser);
   return (
     <div>
       <p>Selected user: {selectedUser ? selectedUser.userName : 'None'}</p>
       {users.length < 1 ? (
-        <UserSubmit
-          userName={userName}
-          setUserName={setUserName}
-          setSelectedUser={setSelectedUser}
-        />
+        <UserSubmit userName={userName} />
       ) : (
         <div>
-          <UserSelect
-            selectedUser={selectedUser}
-            setSelectedUser={setSelectedUser}
-          />
-          <UserSubmit userName={userName} setUserName={setUserName} />
+          <UserSelect />
+          <UserSubmit />
         </div>
       )}
     </div>
