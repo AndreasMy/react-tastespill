@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { UsersContext } from '../helpers/userData';
 import { TopicContext } from './TopicSelection';
-import { useGameInput } from '../hooks/gameHooks';
+import useGameLogic, { useGameInput } from '../hooks/gameHooks';
 
 import React from 'react';
 
@@ -20,7 +21,21 @@ const DisplayWord = () => {
 
 const GameInput = () => {
   const { inputValue, setInputValue } = useContext(GameContext);
-  const { handleKeyDown } = useGameInput();
+  const { handleKeyDown, traverseArray } = useGameInput();
+  const { evalLetters } = useGameLogic();
+
+  useEffect(() => {
+    if (inputValue.length > 0) {
+      evalLetters();
+      traverseArray();
+    }
+  }, [inputValue]);
+
+  const preventBackSpaceAndEnter = (e) => {
+    if (e.keyCode === 8 || e.keyCode === 13) {
+      e.preventDefault();
+    }
+  };
 
   return (
     <div>
@@ -31,7 +46,10 @@ const GameInput = () => {
           onChange={(e) => {
             setInputValue(e.target.value);
           }}
-          onKeyDown={handleKeyDown}
+          onKeyDown={(e) => {
+            preventBackSpaceAndEnter(e);
+            handleKeyDown(e);
+          }}
         />
       </form>
     </div>

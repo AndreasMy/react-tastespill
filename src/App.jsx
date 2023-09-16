@@ -16,6 +16,7 @@ function App() {
 
   const [score, setScore] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [wordIndex, setWordIndex] = useState(0);
   const [shuffledWords, setShuffledWords] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [gameStart, setGameStart] = useState(false);
@@ -50,6 +51,8 @@ function App() {
                   setInputValue,
                   gameStart,
                   setGameStart,
+                  wordIndex,
+                  setWordIndex,
                 }}
               >
                 <div>
