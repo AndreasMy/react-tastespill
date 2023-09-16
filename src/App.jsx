@@ -1,24 +1,24 @@
 import './App.css';
 import { useState } from 'react';
-import TopicSelection from './components/ThemeSelection';
-import GamePage from './components/GamePage';
+import TopicSelection from './components/TopicSelection';
+import GameContainer from './components/GamePage';
 import topics from './data/elementData';
 import CreateUser from './components/UserComponents';
-import { UsersContext } from './data/userData.js';
-import { TopicContext } from './components/ThemeSelection';
+import { UsersContext } from './helpers/userData.js';
+import { TopicContext } from './components/TopicSelection';
 import { GameContext } from './components/GamePage';
-
 
 function App() {
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [users, setUsers] = useState([]);
+  const [userName, setUserName] = useState('');
 
   const [score, setScore] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [shuffledWords, setShuffledWords] = useState([]);
   const [inputValue, setInputValue] = useState('');
-
+  const [gameStart, setGameStart] = useState(false);
 
   const handleSelectTopic = (topic) => {
     setSelectedTopic(topic);
@@ -26,7 +26,14 @@ function App() {
   return (
     <>
       <UsersContext.Provider
-        value={{ users, setUsers, selectedUser, setSelectedUser }}
+        value={{
+          users,
+          setUsers,
+          selectedUser,
+          setSelectedUser,
+          userName,
+          setUserName,
+        }}
       >
         <TopicContext.Provider value={{ selectedTopic, setSelectedTopic }}>
           <div>
@@ -41,10 +48,12 @@ function App() {
                   setShuffledWords,
                   inputValue,
                   setInputValue,
+                  gameStart,
+                  setGameStart,
                 }}
               >
                 <div>
-                  <GamePage />
+                  <GameContainer />
                 </div>
               </GameContext.Provider>
             ) : (

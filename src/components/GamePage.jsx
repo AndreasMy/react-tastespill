@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
-import { useState, useContext } from 'react';
-import { shuffleArray } from '../helpers/utils';
-import { UsersContext } from '../data/userData';
-import { TopicContext } from './ThemeSelection';
-import useGameLogic from '../helpers/hooks';
+import { useContext } from 'react';
+import { UsersContext } from '../helpers/userData';
+import { TopicContext } from './TopicSelection';
+import { useGameInput } from '../hooks/gameHooks';
 
 import React from 'react';
 
@@ -11,7 +10,6 @@ export const GameContext = React.createContext();
 
 const DisplayWord = () => {
   const { shuffledWords, currentIndex, inputValue } = useContext(GameContext);
-
   return (
     <>
       <h3>{shuffledWords[currentIndex]}</h3>
@@ -21,17 +19,8 @@ const DisplayWord = () => {
 };
 
 const GameInput = () => {
-  const { inputValue, setInputValue, setCurrentIndex } =
-    useContext(GameContext);
-  const { scoreCounter } = useGameLogic();
-
-  function handleKeyDown(event) {
-    if (event.key === ' ') {
-      scoreCounter();
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-      setInputValue('');
-    }
-  }
+  const { inputValue, setInputValue } = useContext(GameContext);
+  const { handleKeyDown } = useGameInput();
 
   return (
     <div>
@@ -49,18 +38,25 @@ const GameInput = () => {
   );
 };
 
-const GamePage = () => {
+const Game = () => {
+  const { selectedUser } = useContext(UsersContext);
+  const { score } = useContext(GameContext);
+
+  return (
+    <div>
+      <h2>Game on!</h2>
+      <p>User: {selectedUser ? selectedUser.userName : 'None'} </p>
+      <p> Score: {score ? score : 0}</p>
+      <DisplayWord />
+      <GameInput />
+    </div>
+  );
+};
+
+const GameEntry = () => {
   const { selectedTopic, setSelectedTopic } = useContext(TopicContext);
   const { selectedUser } = useContext(UsersContext);
-  const [gameStart, setGameStart] = useState(false);
-
-  const { score, setShuffledWords } = useContext(GameContext);
-
-  function handleStartBtn() {
-    setGameStart(true);
-    const shuffledArray = shuffleArray(selectedTopic.words);
-    setShuffledWords(shuffledArray);
-  }
+  const { handleStartBtn } = useGameInput();
 
   function handleBackBtn() {
     setSelectedTopic(null);
@@ -68,25 +64,31 @@ const GamePage = () => {
 
   return (
     <div>
+      <button onClick={handleBackBtn}>Back</button>
+      <h2>Game Page</h2>
+      <p>User: {selectedUser ? selectedUser.userName : 'None'} </p>
+      <p>Selected selectedTopic: {selectedTopic.name}</p>
+      <button onClick={handleStartBtn}>Start</button>
+    </div>
+  );
+};
+
+const GameContainer = () => {
+  const { gameStart } = useContext(GameContext);
+
+  return (
+    <div>
       {gameStart ? (
         <div>
-          <h2>Game on!</h2>
-          <p>User: {selectedUser ? selectedUser.userName : 'None'} </p>
-          <p> Score: {score ? score : 0}</p>
-          <DisplayWord />
-          <GameInput />
+          <Game />
         </div>
       ) : (
         <div>
-          <button onClick={handleBackBtn}>Back</button>
-          <h2>Game Page</h2>
-          <p>User: {selectedUser ? selectedUser.userName : 'None'} </p>
-          <p>Selected selectedTopic: {selectedTopic.name}</p>
-          <button onClick={handleStartBtn}>Start</button>
+          <GameEntry />
         </div>
       )}
     </div>
   );
 };
 
-export default GamePage;
+export default GameContainer;

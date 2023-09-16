@@ -1,25 +1,13 @@
 /* eslint-disable react/prop-types */
 
-import { useState, useContext } from 'react';
-import createUser from '../data/userData';
-import { UsersContext } from '../data/userData';
+import { useContext } from 'react';
+
+import { UsersContext } from '../helpers/userData';
+import useUserHelpers from '../hooks/userHooks';
 
 const UserSubmit = () => {
-  const [userName, setUserName] = useState('');
-  const { setUsers, setSelectedUser } = useContext(UsersContext);
-
-  const handleCreateUser = (userScore, userName) => {
-    const newUser = createUser(userScore, userName);
-    setUsers((prevUsers) => [...prevUsers, newUser]);
-    setSelectedUser(newUser);
-    console.log(newUser);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleCreateUser(0, userName);
-    setUserName('');
-  };
+  const { userName, setUserName } = useContext(UsersContext);
+  const { handleSubmit } = useUserHelpers();
 
   return (
     <div>
@@ -62,7 +50,7 @@ const UserSelect = () => {
 
 const CreateUser = ({ userName }) => {
   const { users, selectedUser } = useContext(UsersContext);
-  console.log(selectedUser);
+
   return (
     <div>
       <p>Selected user: {selectedUser ? selectedUser.userName : 'None'}</p>

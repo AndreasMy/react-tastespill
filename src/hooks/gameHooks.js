@@ -1,16 +1,15 @@
 import { useContext } from 'react';
 import { GameContext } from '../components/GamePage';
+import { shuffleArray } from '../helpers/utils';
+import { TopicContext } from '../components/TopicSelection';
 
-function useGameLogic() {
+const useGameLogic = () => {
   const {
-    score,
     setScore,
     currentIndex,
-    setCurrentIndex,
     shuffledWords,
     setShuffledWords,
     inputValue,
-    setInputValue,
   } = useContext(GameContext);
 
   function scoreCounter() {
@@ -28,6 +27,19 @@ function useGameLogic() {
     console.log(inputToCompare);
   }
 
+  return {
+    setShuffledWords,
+    scoreCounter,
+  };
+};
+
+export const useGameInput = () => {
+  const { scoreCounter } = useGameLogic();
+
+  const { setCurrentIndex, setInputValue, setShuffledWords, setGameStart } =
+    useContext(GameContext);
+  const { selectedTopic } = useContext(TopicContext);
+
   function handleKeyDown(event) {
     if (event.key === ' ') {
       scoreCounter();
@@ -36,15 +48,16 @@ function useGameLogic() {
     }
   }
 
+  function handleStartBtn() {
+    setGameStart(true);
+    const shuffledArray = shuffleArray(selectedTopic.words);
+    setShuffledWords(shuffledArray);
+  }
+
   return {
     handleKeyDown,
-    setShuffledWords,
-    shuffledWords,
-    score,
-    setScore,
-    currentIndex,
-    scoreCounter,
+    handleStartBtn,
   };
-}
+};
 
 export default useGameLogic;
