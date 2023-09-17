@@ -7,12 +7,17 @@ import CreateUser from './components/UserComponents';
 import { UsersContext } from './helpers/userData.js';
 import { TopicContext } from './components/TopicSelection';
 import { GameContext } from './components/GamePage';
+import { getFromStorage } from './helpers/localStorage';
 
 function App() {
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [users, setUsers] = useState([]);
   const [userName, setUserName] = useState('');
+
+  const [users, setUsers] = useState(() => {
+    const storedUsers = getFromStorage('users');
+    return storedUsers || [];
+  });
 
   const [score, setScore] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -24,6 +29,7 @@ function App() {
   const handleSelectTopic = (topic) => {
     setSelectedTopic(topic);
   };
+
   return (
     <>
       <UsersContext.Provider
@@ -75,5 +81,8 @@ function App() {
     </>
   );
 }
+
+
+
 
 export default App;
