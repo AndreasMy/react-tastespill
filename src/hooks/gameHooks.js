@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { GameContext } from '../components/GamePage';
 import { shuffleArray } from '../helpers/utils';
 import { TopicContext } from '../components/TopicSelection';
@@ -10,8 +10,16 @@ const useGameLogic = () => {
     shuffledWords,
     setShuffledWords,
     inputValue,
-    wordIndex,
+    correctWordArr,
+    setcorrectWordArr,
   } = useContext(GameContext);
+
+  useEffect(() => {
+    if (correctWordArr.length % 3 === 0 && correctWordArr.length !== 0) {
+      setScore((prevScore) => prevScore + 10);
+    }
+
+  }, [correctWordArr, setScore]);
 
   function setInputString() {
     let inputString = inputValue;
@@ -19,15 +27,16 @@ const useGameLogic = () => {
     return inputString;
   }
 
-  function scoreCounter() {
+  function scoreByWords() {
     const inputString = setInputString();
 
     if (inputString === shuffledWords[currentIndex]) {
+      setcorrectWordArr([...correctWordArr, inputString]);
       setScore((prevScore) => prevScore + 5);
     }
   }
 
-  function compareLetters() {
+  function scoreByLetters() {
     const inputString = setInputString();
 
     let wordOne = '';
@@ -36,8 +45,10 @@ const useGameLogic = () => {
     const [...splitShuffledWord] = shuffledWords[currentIndex];
     const [...inputToCompare] = inputString;
 
-    wordOne = splitShuffledWord[wordIndex];
-    wordTwo = inputToCompare[wordIndex];
+    const currentWordIndex = inputToCompare.length - 1;
+
+    wordOne = splitShuffledWord[currentWordIndex];
+    wordTwo = inputToCompare[currentWordIndex];
 
     console.log(inputToCompare);
     console.log('Selected word: ' + wordOne);
@@ -45,7 +56,7 @@ const useGameLogic = () => {
 
     if (wordOne === wordTwo && wordOne !== undefined) {
       return 1;
-    } else if (wordOne === undefined & wordTwo === undefined) {
+    } else if ((wordOne === undefined) && (wordTwo === undefined)) {
       return 0;
     } else if (wordOne !== wordTwo) {
       return -2;
@@ -55,42 +66,30 @@ const useGameLogic = () => {
   }
 
   function evalLetters() {
-    const evalInput = compareLetters();
+    const evalInput = scoreByLetters();
     setScore((prevScore) => prevScore + evalInput);
   }
 
   return {
     setShuffledWords,
-    scoreCounter,
+    scoreByWords,
     evalLetters,
   };
 };
 
 export const useGameInput = () => {
-  const { scoreCounter } = useGameLogic();
+  const { scoreByWords } = useGameLogic();
 
-  const {
-    setCurrentIndex,
-    setInputValue,
-    setShuffledWords,
-    setGameStart,
-    wordIndex,
-    setWordIndex,
-  } = useContext(GameContext);
+  const { setCurrentIndex, setInputValue, setShuffledWords, setGameStart } =
+    useContext(GameContext);
   const { selectedTopic } = useContext(TopicContext);
 
   function handleKeyDown(event) {
     if (event.key === ' ') {
-      scoreCounter();
+      scoreByWords();
       setCurrentIndex((prevIndex) => prevIndex + 1);
       setInputValue('');
-      setWordIndex(-1);
     }
-  }
-
-  function traverseArray() {
-    setWordIndex((prevWordIndex) => prevWordIndex + 1);
-    console.log(wordIndex);
   }
 
   function handleStartBtn() {
@@ -102,7 +101,6 @@ export const useGameInput = () => {
   return {
     handleKeyDown,
     handleStartBtn,
-    traverseArray,
   };
 };
 

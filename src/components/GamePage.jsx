@@ -4,6 +4,7 @@ import { useContext, useEffect } from 'react';
 import { UsersContext } from '../helpers/userData';
 import { TopicContext } from './TopicSelection';
 import useGameLogic, { useGameInput } from '../hooks/gameHooks';
+import Timer from './Timer';
 
 import React from 'react';
 
@@ -21,13 +22,12 @@ const DisplayWord = () => {
 
 const GameInput = () => {
   const { inputValue, setInputValue } = useContext(GameContext);
-  const { handleKeyDown, traverseArray } = useGameInput();
+  const { handleKeyDown } = useGameInput();
   const { evalLetters } = useGameLogic();
 
   useEffect(() => {
     if (inputValue.length > 0) {
       evalLetters();
-      traverseArray();
     }
   }, [inputValue]);
 
@@ -85,7 +85,7 @@ const GameEntry = () => {
       <button onClick={handleBackBtn}>Back</button>
       <h2>Game Page</h2>
       <p>User: {selectedUser ? selectedUser.userName : 'None'} </p>
-      <p>Selected selectedTopic: {selectedTopic.name}</p>
+      <p>Selected topic: {selectedTopic.name}</p>
       <button onClick={handleStartBtn}>Start</button>
     </div>
   );
@@ -98,6 +98,7 @@ const GameContainer = () => {
     <div>
       {gameStart ? (
         <div>
+          <Timer />
           <Game />
         </div>
       ) : (
