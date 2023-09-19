@@ -1,13 +1,15 @@
 import './App.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import TopicSelection from './components/TopicSelection';
 import GameContainer from './components/GamePage';
 import topics from './data/elementData';
 import CreateUser from './components/UserComponents';
+import { getFromStorage } from './helpers/localStorage';
 import { UsersContext } from './helpers/userData.js';
 import { TopicContext } from './components/TopicSelection';
 import { GameContext } from './components/GamePage';
-import { getFromStorage } from './helpers/localStorage';
+
+export const TimerContext = React.createContext();
 
 function App() {
   const [selectedTopic, setSelectedTopic] = useState(null);
@@ -18,6 +20,11 @@ function App() {
     const storedUsers = getFromStorage('users');
     return storedUsers || [];
   });
+
+  const [timeLeft, setTimeLeft] = useState(8);
+  const [scoreList, setScoreList] = useState([]);
+
+  
 
   const [score, setScore] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -59,6 +66,11 @@ function App() {
                   setGameStart,
                   correctWordArr,
                   setcorrectWordArr,
+                  timeLeft,
+                  setTimeLeft,
+                  scoreList,
+                  setScoreList,
+ 
                 }}
               >
                 <div>
@@ -81,8 +93,5 @@ function App() {
     </>
   );
 }
-
-
-
 
 export default App;

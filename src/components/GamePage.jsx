@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UsersContext } from '../helpers/userData';
 import { TopicContext } from './TopicSelection';
 import useGameLogic, { useGameInput } from '../hooks/gameHooks';
 import Timer from './Timer';
+import { ScoreList } from './Timer';
 
 import React from 'react';
 
@@ -25,12 +26,6 @@ const GameInput = () => {
   const { handleKeyDown } = useGameInput();
   const { evalLetters } = useGameLogic();
 
-  useEffect(() => {
-    if (inputValue.length > 0) {
-      evalLetters();
-    }
-  }, [inputValue]);
-
   const preventBackSpaceAndEnter = (e) => {
     if (e.keyCode === 8 || e.keyCode === 13) {
       e.preventDefault();
@@ -44,7 +39,9 @@ const GameInput = () => {
           type='text'
           value={inputValue}
           onChange={(e) => {
-            setInputValue(e.target.value);
+            const newValue = e.target.value.replace(/ /g, '');
+            setInputValue(newValue);
+            evalLetters(newValue);
           }}
           onKeyDown={(e) => {
             preventBackSpaceAndEnter(e);
@@ -91,21 +88,28 @@ const GameEntry = () => {
   );
 };
 
-
-
 const GameContainer = () => {
-  const { gameStart } = useContext(GameContext);
+  const { gameStart, timeLeft, score, setScoreList } = useContext(GameContext);
+  const [gameOver, setGameOver] = useState(false);
+
+  useEffect(() => {
+    if (!timeLeft) {
+      setGameOver(true);
+      setScoreList((prevScoreList) => [...prevScoreList, score]);
+    }
+  }, [timeLeft]);
 
   return (
     <div>
       {gameStart ? (
         <div>
-          <Timer />
+          <Timer setGameOver={setGameOver} />
           <Game />
         </div>
       ) : (
         <div>
           <GameEntry />
+          <ScoreList setGameOver={setGameOver} gameOver={gameOver} />
         </div>
       )}
     </div>

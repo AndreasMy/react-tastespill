@@ -1,37 +1,54 @@
-import React, { useEffect, useState, useContext } from 'react';
+/* eslint-disable react/prop-types */
+import { useEffect, useContext } from 'react';
 import { GameContext } from './GamePage';
-import { UsersContext } from '../helpers/userData';
 
-export const TimerContext = React.createContext();
-
-const Timer = () => {
-  const { setGameStart, score } = useContext(GameContext);
-  const [timeLeft, setTimeLeft] = useState(5);
-  const { users } = useContext(UsersContext);
+const Timer = ({ setGameOver }) => {
+  const { setGameStart, timeLeft, setTimeLeft } = useContext(GameContext);
+  const initialTime = 8;
 
   useEffect(() => {
-    if (!timeLeft) {
-      const newScoreList = [];
-      setGameStart(false);
-      //* Add score to user score arr
-      newScoreList.push(score);
-      console.log(newScoreList);
-
-      console.log(users);
-      //updateScoreList(users.id, );
-
-      //* Open a modal with game stats
-      return;
-    }
-
     const intervalId = setInterval(() => {
-      setTimeLeft(timeLeft - 1);
+      setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [timeLeft, setGameStart, score, users]);
+  }, [setTimeLeft]);
+
+  useEffect(() => {
+    if (!timeLeft) {
+      setGameOver(true);
+      setGameStart(false);
+      setTimeLeft(initialTime);
+      return;
+    }
+  }, [timeLeft, setGameOver, setGameStart, setTimeLeft]);
 
   return <div>{timeLeft}</div>;
+};
+
+export const ScoreList = ({ gameOver, setGameOver }) => {
+  const { score, scoreList, setScoreList } = useContext(GameContext);
+
+  useEffect(() => {
+    console.log(gameOver);
+    console.log(scoreList);
+  }, [gameOver, scoreList]);
+
+  useEffect(() => {
+    if (gameOver) {
+      setGameOver(false);
+    }
+  }, [gameOver, setGameOver, setScoreList, score]);
+
+  return (
+    <div>
+      <ul>
+        {scoreList.map((userScore, index) => {
+          return <li key={index}>{userScore}</li>;
+        })}
+      </ul>
+    </div>
+  );
 };
 
 export default Timer;

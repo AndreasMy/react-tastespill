@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-
 export const TopicContext = React.createContext();
 
-const TopicSelectBtn = ({ topic, onSelect }) => {
+/* const TopicSelectBtn = ({ topic, onSelect }) => {
   return <button onClick={() => onSelect(topic)}>{topic.name}</button>;
-};
+}; */
 
 const TopicSelection = ({ topics, onSelectTopic }) => {
+  const TopicSelectBtn = ({ topic, onSelect }) => {
+    return <button onClick={() => onSelect(topic)}>{topic.name}</button>;
+  };
+
   return (
     <div>
       {topics.map((topic) => (

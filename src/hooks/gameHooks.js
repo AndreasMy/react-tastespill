@@ -18,32 +18,21 @@ const useGameLogic = () => {
     if (correctWordArr.length % 3 === 0 && correctWordArr.length !== 0) {
       setScore((prevScore) => prevScore + 10);
     }
-
   }, [correctWordArr, setScore]);
 
-  function setInputString() {
-    let inputString = inputValue;
-    inputString = inputString.replace(/\s/g, '');
-    return inputString;
-  }
-
   function scoreByWords() {
-    const inputString = setInputString();
-
-    if (inputString === shuffledWords[currentIndex]) {
-      setcorrectWordArr([...correctWordArr, inputString]);
+    if (inputValue === shuffledWords[currentIndex]) {
+      setcorrectWordArr([...correctWordArr, inputValue]);
       setScore((prevScore) => prevScore + 5);
     }
   }
 
-  function scoreByLetters() {
-    const inputString = setInputString();
-
+  function scoreByLetters(inputValue) {
     let wordOne = '';
     let wordTwo = '';
 
     const [...splitShuffledWord] = shuffledWords[currentIndex];
-    const [...inputToCompare] = inputString;
+    const [...inputToCompare] = inputValue;
 
     const currentWordIndex = inputToCompare.length - 1;
 
@@ -56,17 +45,17 @@ const useGameLogic = () => {
 
     if (wordOne === wordTwo && wordOne !== undefined) {
       return 1;
-    } else if ((wordOne === undefined) && (wordTwo === undefined)) {
+    } else if (wordOne === undefined && wordTwo === undefined) {
       return 0;
     } else if (wordOne !== wordTwo) {
-      return -2;
+      return -1;
     } else if (wordOne.length !== wordTwo.length) {
-      return -2;
+      return -1;
     }
   }
 
-  function evalLetters() {
-    const evalInput = scoreByLetters();
+  function evalLetters(inputString) {
+    const evalInput = scoreByLetters(inputString);
     setScore((prevScore) => prevScore + evalInput);
   }
 
