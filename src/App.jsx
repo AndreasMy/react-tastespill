@@ -23,8 +23,11 @@ function App() {
 
   const [timeLeft, setTimeLeft] = useState(8);
   const [scoreList, setScoreList] = useState([]);
-
-  
+  const [totalScore, setTotalScore] = useState({
+    userScore: 0,
+    uuid: '',
+    date: '',
+  });
 
   const [score, setScore] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -36,6 +39,8 @@ function App() {
   const handleSelectTopic = (topic) => {
     setSelectedTopic(topic);
   };
+
+ console.log(selectedUser)
 
   return (
     <>
@@ -56,6 +61,8 @@ function App() {
                 value={{
                   setScore,
                   score,
+                  scoreList,
+                  setScoreList,
                   currentIndex,
                   setCurrentIndex,
                   shuffledWords,
@@ -68,9 +75,8 @@ function App() {
                   setcorrectWordArr,
                   timeLeft,
                   setTimeLeft,
-                  scoreList,
-                  setScoreList,
- 
+                  totalScore,
+                  setTotalScore,
                 }}
               >
                 <div>

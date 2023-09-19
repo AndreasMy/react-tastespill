@@ -27,7 +27,7 @@ const Timer = ({ setGameOver }) => {
 };
 
 export const ScoreList = ({ gameOver, setGameOver }) => {
-  const { score, scoreList, setScoreList } = useContext(GameContext);
+  const { scoreList, setScoreList } = useContext(GameContext);
 
   useEffect(() => {
     console.log(gameOver);
@@ -38,13 +38,13 @@ export const ScoreList = ({ gameOver, setGameOver }) => {
     if (gameOver) {
       setGameOver(false);
     }
-  }, [gameOver, setGameOver, setScoreList, score]);
+  }, [gameOver, setGameOver, setScoreList]);
 
   return (
     <div>
       <ul>
-        {scoreList.map((userScore, index) => {
-          return <li key={index}>{userScore}</li>;
+        {scoreList.map((score, index) => {
+          return <li key={index}>{score.userScore}</li>;
         })}
       </ul>
     </div>

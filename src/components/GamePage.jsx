@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
+import { v4 as uuidv4 } from 'uuid';
 import { useContext, useEffect, useState } from 'react';
 import { UsersContext } from '../helpers/userData';
 import { TopicContext } from './TopicSelection';
 import useGameLogic, { useGameInput } from '../hooks/gameHooks';
 import Timer from './Timer';
 import { ScoreList } from './Timer';
+import { sendToStorage } from '../helpers/localStorage';
 
 import React from 'react';
 
@@ -89,13 +91,34 @@ const GameEntry = () => {
 };
 
 const GameContainer = () => {
-  const { gameStart, timeLeft, score, setScoreList } = useContext(GameContext);
+  const { gameStart, timeLeft, score, setScoreList, scoreList, setTotalScore } =
+    useContext(GameContext);
+  const { selectedUser } = useContext(UsersContext);
+
   const [gameOver, setGameOver] = useState(false);
+
+  console.log(selectedUser);
+
+  useEffect(() => {
+    selectedUser.scoreList = scoreList;
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const updatedUsers = users.map((user) =>
+      user.id === selectedUser.id ? selectedUser : user
+    );
+    sendToStorage('users', [...updatedUsers]);
+  }, [scoreList]);
 
   useEffect(() => {
     if (!timeLeft) {
       setGameOver(true);
-      setScoreList((prevScoreList) => [...prevScoreList, score]);
+      const totalScoreObj = {
+        userScore: score,
+        id: uuidv4(),
+        date: new Date().toLocaleDateString(),
+      };
+
+      setTotalScore(totalScoreObj);
+      setScoreList((prevScoreList) => [...prevScoreList, totalScoreObj]);
     }
   }, [timeLeft]);
 
