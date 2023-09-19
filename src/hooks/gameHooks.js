@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import { GameContext } from '../components/GamePage';
 import { shuffleArray } from '../helpers/utils';
 import { TopicContext } from '../components/TopicSelection';
@@ -12,6 +12,10 @@ const useGameLogic = () => {
     inputValue,
     correctWordArr,
     setcorrectWordArr,
+    storedTime,
+    setStoredTime,
+    timeDifference,
+    setTimeDifference,
   } = useContext(GameContext);
 
   useEffect(() => {
@@ -20,8 +24,31 @@ const useGameLogic = () => {
     }
   }, [correctWordArr, setScore]);
 
+  const triggerTimeBonus = useCallback(() => {
+    const timeMS = storedTime.instanceTwo - storedTime.instanceOne;
+    const timeS = timeMS / 1000;
+    setTimeDifference(timeS);
+  }, [setTimeDifference, storedTime.instanceOne, storedTime.instanceTwo]);
+
+  useEffect(() => {
+    if (storedTime.instanceOne !== null && storedTime.instanceTwo !== null) {
+      triggerTimeBonus();
+    }
+  }, [storedTime, triggerTimeBonus]);
+
+  useEffect(() => {
+    if (timeDifference !== null) {
+      const timeBonsuScore = Math.round(10 / timeDifference);
+      setScore((prevScore) => prevScore + timeBonsuScore);
+      setTimeDifference(null);
+      console.log('Time bonus! ' + timeBonsuScore);
+      console.log(timeDifference);
+    }
+  }, [setScore, timeDifference, setTimeDifference]);
+
   function scoreByWords() {
     if (inputValue === shuffledWords[currentIndex]) {
+      triggerTimeBonus();
       setcorrectWordArr([...correctWordArr, inputValue]);
       setScore((prevScore) => prevScore + 5);
     }
@@ -39,10 +66,6 @@ const useGameLogic = () => {
     wordOne = splitShuffledWord[currentWordIndex];
     wordTwo = inputToCompare[currentWordIndex];
 
-    console.log(inputToCompare);
-    console.log('Selected word: ' + wordOne);
-    console.log('Written word: ' + wordTwo);
-
     if (wordOne === wordTwo && wordOne !== undefined) {
       return 1;
     } else if (wordOne === undefined && wordTwo === undefined) {
@@ -59,25 +82,62 @@ const useGameLogic = () => {
     setScore((prevScore) => prevScore + evalInput);
   }
 
+  const recordTime = () => {
+    if (storedTime.instanceOne === null && storedTime.instanceTwo === null) {
+      setStoredTime((prevState) => ({
+        ...prevState,
+        instanceOne: Date.now(),
+      }));
+    } else if (
+      storedTime.instanceOne !== null &&
+      storedTime.instanceTwo === null
+    ) {
+      setStoredTime((prevState) => ({
+        ...prevState,
+        instanceTwo: Date.now(),
+      }));
+    } else {
+      return;
+    }
+  };
+
   return {
     setShuffledWords,
     scoreByWords,
     evalLetters,
+    recordTime,
   };
 };
 
 export const useGameInput = () => {
-  const { scoreByWords } = useGameLogic();
+  const { scoreByWords, recordTime } = useGameLogic();
 
-  const { setCurrentIndex, setInputValue, setShuffledWords, setGameStart } =
-    useContext(GameContext);
+  const {
+    setCurrentIndex,
+    setInputValue,
+    setShuffledWords,
+    setGameStart,
+    timeDifference,
+    setStoredTime,
+    storedTime,
+  } = useContext(GameContext);
   const { selectedTopic } = useContext(TopicContext);
 
   function handleKeyDown(event) {
     if (event.key === ' ') {
+      recordTime();
       scoreByWords();
       setCurrentIndex((prevIndex) => prevIndex + 1);
       setInputValue('');
+      console.log(storedTime);
+
+      if (timeDifference !== null) {
+        setStoredTime((prevState) => ({
+          ...prevState,
+          instanceOne: null,
+          instanceTwo: null,
+        }));
+      }
     }
   }
 

@@ -7,15 +7,18 @@ import { TopicContext } from './TopicSelection';
 import useGameLogic, { useGameInput } from '../hooks/gameHooks';
 import Timer from './Timer';
 import { PlayerScoreList } from './Timer';
-// import { sendToStorage } from '../helpers/localStorage';
-
 import React from 'react';
-// import { getFromStorage } from '../helpers/localStorage';
 
 export const GameContext = React.createContext();
 
 const DisplayWord = () => {
   const { shuffledWords, currentIndex, inputValue } = useContext(GameContext);
+  const { recordTime } = useGameLogic();
+
+  useEffect(() => {
+    recordTime();
+  }, [currentIndex]);
+
   return (
     <>
       <h3>{shuffledWords[currentIndex]}</h3>

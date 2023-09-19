@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useContext, useMemo } from 'react';
 import { GameContext } from './GamePage';
-// import { UsersContext } from '../helpers/userData';
 
 const Timer = ({ setGameOver }) => {
   const { setGameStart, timeLeft, setTimeLeft } = useContext(GameContext);
-  const initialTime = 8;
+  const initialTime = 15;
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -30,7 +29,6 @@ const Timer = ({ setGameOver }) => {
 export const PlayerScoreList = ({
   gameOver,
   setGameOver,
-
   filterScoresByUser,
 }) => {
   useEffect(() => {

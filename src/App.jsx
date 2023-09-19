@@ -21,6 +21,12 @@ function App() {
     return storedUsers || [];
   });
 
+  const [storedTime, setStoredTime] = useState({
+    instanceOne: null,
+    instanceTwo: null,
+  });
+  const [timeDifference, setTimeDifference] = useState(null);
+
   //? obsolete
   const [scoreList, setScoreList] = useState([]);
 
@@ -29,7 +35,7 @@ function App() {
     return storedScores || [];
   });
 
-  const [timeLeft, setTimeLeft] = useState(8);
+  const [timeLeft, setTimeLeft] = useState(15);
   const [totalScore, setTotalScore] = useState({
     userScore: 0,
     userName: '',
@@ -86,6 +92,10 @@ function App() {
                   setTotalScore,
                   storedScores,
                   setStoredScores,
+                  storedTime,
+                  setStoredTime,
+                  timeDifference,
+                  setTimeDifference,
                 }}
               >
                 <div>
