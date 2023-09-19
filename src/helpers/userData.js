@@ -5,12 +5,12 @@ export const UsersContext = React.createContext();
 
 const createUser = (userScore, userName) => {
   const id = uuidv4();
-  const scoreList = [];
+  const userScoreList = [];
   const user = {
     id,
     userName,
     userScore,
-    scoreList,
+    userScoreList,
   };
   return user;
 };

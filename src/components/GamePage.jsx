@@ -6,10 +6,11 @@ import { UsersContext } from '../helpers/userData';
 import { TopicContext } from './TopicSelection';
 import useGameLogic, { useGameInput } from '../hooks/gameHooks';
 import Timer from './Timer';
-import { ScoreList } from './Timer';
-import { sendToStorage } from '../helpers/localStorage';
+import { PlayerScoreList } from './Timer';
+// import { sendToStorage } from '../helpers/localStorage';
 
 import React from 'react';
+// import { getFromStorage } from '../helpers/localStorage';
 
 export const GameContext = React.createContext();
 
@@ -72,11 +73,12 @@ const Game = () => {
 
 const GameEntry = () => {
   const { selectedTopic, setSelectedTopic } = useContext(TopicContext);
-  const { selectedUser } = useContext(UsersContext);
+  const { selectedUser, setSelectedUser } = useContext(UsersContext);
   const { handleStartBtn } = useGameInput();
 
   function handleBackBtn() {
     setSelectedTopic(null);
+    setSelectedUser(null);
   }
 
   return (
@@ -91,34 +93,51 @@ const GameEntry = () => {
 };
 
 const GameContainer = () => {
-  const { gameStart, timeLeft, score, setScoreList, scoreList, setTotalScore } =
-    useContext(GameContext);
+  const {
+    gameStart,
+    timeLeft,
+    score,
+    setScore,
+    scoreList,
+    setTotalScore,
+    setcorrectWordArr,
+    setStoredScores,
+    storedScores,
+  } = useContext(GameContext);
   const { selectedUser } = useContext(UsersContext);
-
   const [gameOver, setGameOver] = useState(false);
 
-  console.log(selectedUser);
+  const sendOBJToStorage = (key, newScoreObj) => {
+    // Get the existing scores for this user
+    const existingScores = JSON.parse(localStorage.getItem(key)) || [];
+    const updatedScores = [...existingScores, newScoreObj];
+    localStorage.setItem(key, JSON.stringify(updatedScores));
+  };
 
-  useEffect(() => {
-    selectedUser.scoreList = scoreList;
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const updatedUsers = users.map((user) =>
-      user.id === selectedUser.id ? selectedUser : user
-    );
-    sendToStorage('users', [...updatedUsers]);
-  }, [scoreList]);
+  const filterScoresByUser = () => {
+    return storedScores.filter((score) => score.userID === selectedUser.id);
+  };
 
   useEffect(() => {
     if (!timeLeft) {
       setGameOver(true);
+
       const totalScoreObj = {
+        userID: selectedUser.id,
+        userName: selectedUser.userName,
         userScore: score,
         id: uuidv4(),
         date: new Date().toLocaleDateString(),
       };
 
       setTotalScore(totalScoreObj);
-      setScoreList((prevScoreList) => [...prevScoreList, totalScoreObj]);
+      setStoredScores((prevScoreList) => [...prevScoreList, totalScoreObj]);
+      sendOBJToStorage('scores', totalScoreObj);
+
+      //? Reset state
+      setScore(0);
+      setTotalScore(0);
+      setcorrectWordArr([]);
     }
   }, [timeLeft]);
 
@@ -132,7 +151,12 @@ const GameContainer = () => {
       ) : (
         <div>
           <GameEntry />
-          <ScoreList setGameOver={setGameOver} gameOver={gameOver} />
+          <PlayerScoreList
+            filterScoresByUser={filterScoresByUser}
+            setGameOver={setGameOver}
+            gameOver={gameOver}
+            scoreList={scoreList}
+          />
         </div>
       )}
     </div>

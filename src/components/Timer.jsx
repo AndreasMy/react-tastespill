@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useMemo } from 'react';
 import { GameContext } from './GamePage';
+// import { UsersContext } from '../helpers/userData';
 
 const Timer = ({ setGameOver }) => {
   const { setGameStart, timeLeft, setTimeLeft } = useContext(GameContext);
@@ -26,25 +27,25 @@ const Timer = ({ setGameOver }) => {
   return <div>{timeLeft}</div>;
 };
 
-export const ScoreList = ({ gameOver, setGameOver }) => {
-  const { scoreList, setScoreList } = useContext(GameContext);
+export const PlayerScoreList = ({
+  gameOver,
+  setGameOver,
 
-  useEffect(() => {
-    console.log(gameOver);
-    console.log(scoreList);
-  }, [gameOver, scoreList]);
-
+  filterScoresByUser,
+}) => {
   useEffect(() => {
     if (gameOver) {
       setGameOver(false);
     }
-  }, [gameOver, setGameOver, setScoreList]);
+  }, [gameOver, setGameOver]);
+
+  const scores = useMemo(() => filterScoresByUser(), [filterScoresByUser]);
 
   return (
     <div>
       <ul>
-        {scoreList.map((score, index) => {
-          return <li key={index}>{score.userScore}</li>;
+        {scores.map((score, id) => {
+          return <li key={id}>{score.userScore}</li>;
         })}
       </ul>
     </div>

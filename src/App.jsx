@@ -21,10 +21,19 @@ function App() {
     return storedUsers || [];
   });
 
-  const [timeLeft, setTimeLeft] = useState(8);
+  //? obsolete
   const [scoreList, setScoreList] = useState([]);
+
+  const [storedScores, setStoredScores] = useState(() => {
+    const storedScores = getFromStorage('scores');
+    return storedScores || [];
+  });
+
+  const [timeLeft, setTimeLeft] = useState(8);
   const [totalScore, setTotalScore] = useState({
     userScore: 0,
+    userName: '',
+    userID: '',
     uuid: '',
     date: '',
   });
@@ -39,8 +48,6 @@ function App() {
   const handleSelectTopic = (topic) => {
     setSelectedTopic(topic);
   };
-
- console.log(selectedUser)
 
   return (
     <>
@@ -77,6 +84,8 @@ function App() {
                   setTimeLeft,
                   totalScore,
                   setTotalScore,
+                  storedScores,
+                  setStoredScores,
                 }}
               >
                 <div>

@@ -19,14 +19,4 @@ export function sendToStorage(key, data) {
   }
 }
 
-/* export function updateScoreList(userId, newScoreList) {
-  setUsers((prevUsers) => {
-    const updatedUsers = prevUsers.map((user) =>
-      user.id === userId ? { ...user, scroreList: newScoreList } : user
-    );
-    sendToStorage('users', updatedUsers);
-    return updatedUsers;
-  });
-} */
-
 // localStorage.clear()
