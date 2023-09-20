@@ -2,7 +2,7 @@
 import { useEffect, useMemo } from 'react';
 
 const Timer = ({ setGameOver, setGameStart, timeLeft, setTimeLeft }) => {
-  const initialTime = 20;
+  const initialTime = 30;
 
   useEffect(() => {
     const intervalId = setInterval(() => {

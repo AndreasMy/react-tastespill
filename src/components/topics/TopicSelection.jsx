@@ -8,7 +8,7 @@ const TopicSelection = ({ topics, onSelectTopic }) => {
   };
 
   return (
-    <div>
+    <div className='topic-select-container'>
       {topics.map((topic) => (
         <TopicSelectBtn key={topic.id} topic={topic} onSelect={onSelectTopic} />
       ))}

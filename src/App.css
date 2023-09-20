@@ -1,0 +1,35 @@
+#root {
+  min-height: 100vh;
+  min-width: 100%;
+
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-conatiner {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 70vh;
+  min-width: 70%;
+  margin: 7% 5%;
+  background-color: rgb(30, 31, 37);
+}
+
+label,
+h2,
+p,
+li {
+  color: antiquewhite;
+}
+
+.user-select-container,
+.user-select-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-width: 90%;
+}

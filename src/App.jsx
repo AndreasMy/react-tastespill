@@ -1,4 +1,6 @@
 import './App.css';
+
+
 import React, { useState } from 'react';
 import topics from './data/elementData';
 import { getFromStorage } from './helpers/localStorage';
@@ -46,7 +48,7 @@ function App() {
         }}
       >
         <TopicContext.Provider value={{ selectedTopic, setSelectedTopic }}>
-          <div>
+          <div className='game-conatiner'>
             {selectedTopic ? (
               <GameContext.Provider
                 value={{

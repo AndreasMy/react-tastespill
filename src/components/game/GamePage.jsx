@@ -88,7 +88,7 @@ export const Game = ({
   }
 
   return (
-    <div>
+    <>
       <h2>Game on!</h2>
       <p>User: {selectedUser ? selectedUser.userName : 'None'} </p>
 
@@ -111,6 +111,6 @@ export const Game = ({
         inputValue={inputValue}
         setInputValue={setInputValue}
       />
-    </div>
+    </>
   );
 };

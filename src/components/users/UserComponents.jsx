@@ -1,14 +1,12 @@
 /* eslint-disable react/prop-types */
-
 import { useContext, useEffect } from 'react';
 import { UsersContext } from '../../helpers/userData';
 import useUserHelpers from '../../hooks/userHooks';
 import { sendToStorage } from '../../helpers/localStorage';
 
 const UserSubmit = () => {
-  const { userName, setUserName, users,  } = useContext(UsersContext);
+  const { userName, setUserName, users } = useContext(UsersContext);
   const { handleSubmit } = useUserHelpers();
-
 
   useEffect(() => {
     if (users) {
@@ -17,7 +15,7 @@ const UserSubmit = () => {
   }, [users]);
 
   return (
-    <div>
+    <div className='player-form-container'>
       <label htmlFor='createUser'>New player: </label>
       <form onSubmit={handleSubmit}>
         <input
@@ -37,8 +35,8 @@ const UserSelect = () => {
   const { users, setSelectedUser } = useContext(UsersContext);
 
   return (
-    <>
-      <ul>
+    <div className='user-select-container'>
+      <ul className='user-select-list'>
         {users.map((user) => (
           <li key={user.id}>
             <button
@@ -51,7 +49,7 @@ const UserSelect = () => {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 
