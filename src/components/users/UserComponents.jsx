@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 
 import { useContext, useEffect } from 'react';
-import { UsersContext } from '../helpers/userData';
-import useUserHelpers from '../hooks/userHooks';
-import { sendToStorage } from '../helpers/localStorage';
+import { UsersContext } from '../../helpers/userData';
+import useUserHelpers from '../../hooks/userHooks';
+import { sendToStorage } from '../../helpers/localStorage';
 
 const UserSubmit = () => {
   const { userName, setUserName, users,  } = useContext(UsersContext);

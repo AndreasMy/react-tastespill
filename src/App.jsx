@@ -1,15 +1,16 @@
 import './App.css';
 import React, { useState } from 'react';
-import TopicSelection from './components/TopicSelection';
-import GameContainer from './components/GameComponents';
 import topics from './data/elementData';
-import CreateUser from './components/UserComponents';
 import { getFromStorage } from './helpers/localStorage';
 import { UsersContext } from './helpers/userData.js';
-import { TopicContext } from './components/TopicSelection';
-import { GameContext } from './components/GameComponents';
+import { TopicContext } from './components/topics/TopicSelection';
+
+import CreateUser from './components/users/UserComponents';
+import TopicSelection from './components/topics/TopicSelection';
+import GameContainer from './components/game/GameContainer';
 
 export const TimerContext = React.createContext();
+export const GameContext = React.createContext();
 
 function App() {
   const [selectedTopic, setSelectedTopic] = useState(null);
@@ -19,8 +20,6 @@ function App() {
     const storedUsers = getFromStorage('users');
     return storedUsers || [];
   });
-
-
 
   const [totalScore, setTotalScore] = useState({
     userScore: 0,
@@ -50,10 +49,9 @@ function App() {
           <div>
             {selectedTopic ? (
               <GameContext.Provider
-                value={{      
+                value={{
                   totalScore,
                   setTotalScore,
-       
                 }}
               >
                 <div>
