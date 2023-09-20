@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { v4 as uuidv4 } from 'uuid';
+import React from 'react';
 import { useContext, useEffect, useState } from 'react';
+import Timer from './Timer';
 import { UsersContext } from '../helpers/userData';
 import { TopicContext } from './TopicSelection';
-import Timer from './Timer';
 import { PlayerScoreList } from './Timer';
-import React from 'react';
 import { getFromStorage } from '../helpers/localStorage';
 import { shuffleArray } from '../helpers/utils';
 
@@ -63,7 +63,18 @@ export const GameInput = ({
   );
 };
 
+export const ScoreCounter = ({ score }) => {
+  return (
+    <div>
+      <p>Player Score</p>
+      <p> Score: {score ? score : 0}</p>
+    </div>
+  );
+};
+
 export const Game = ({
+  lastTypedTime,
+  setLastTypedTime,
   shuffledWords,
   score,
   setScore,
@@ -72,6 +83,8 @@ export const Game = ({
 }) => {
   const [inputValue, setInputValue] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const [timeDifference, setTimeDifference] = useState(null);
 
   const { selectedUser } = useContext(UsersContext);
 
@@ -83,8 +96,18 @@ export const Game = ({
 
   function scoreByWords() {
     if (inputValue === shuffledWords[currentIndex]) {
+      const currentTime = Date.now();
+      const timeDifference = lastTypedTime
+        ? (currentTime - lastTypedTime) / 1000
+        : 0; // in seconds
+
+      // Always calculate the time bonus since we have a starting point
+      const timeBonusScore = Math.round(10 / (timeDifference || 1)); // We use || 1 to avoid dividing by zero just in case
+      console.log(timeBonusScore);
+      setScore((prevScore) => prevScore + 5 + timeBonusScore); // 5 for the correct word, plus the time bonus
+
+      setLastTypedTime(currentTime);
       setcorrectWordArr([...correctWordArr, inputValue]);
-      setScore((prevScore) => prevScore + 5);
     }
   }
 
@@ -116,36 +139,24 @@ export const Game = ({
     setScore((prevScore) => prevScore + evalInput);
   }
 
-  /*   const recordTime = () => {
-    if (storedTime.instanceOne === null && storedTime.instanceTwo === null) {
-      setStoredTime((prevState) => ({
-        ...prevState,
-        instanceOne: Date.now(),
-      }));
-    } else if (
-      storedTime.instanceOne !== null &&
-      storedTime.instanceTwo === null
-    ) {
-      setStoredTime((prevState) => ({
-        ...prevState,
-        instanceTwo: Date.now(),
-      }));
-    } else {
-      return;
-    }
-  };
- */
   return (
     <div>
       <h2>Game on!</h2>
       <p>User: {selectedUser ? selectedUser.userName : 'None'} </p>
-      <p> Score: {score ? score : 0}</p>
+
       <DisplayWord
         shuffledWords={shuffledWords}
         currentIndex={currentIndex}
         inputValue={inputValue}
       />
+      <ScoreCounter
+        timeDifference={timeDifference}
+        setTimeDifference={setTimeDifference}
+        score={score}
+        setScore={setScore}
+      />
       <GameInput
+        currentIndex={currentIndex}
         evalLetters={evalLetters}
         scoreByWords={scoreByWords}
         setCurrentIndex={setCurrentIndex}
@@ -156,7 +167,11 @@ export const Game = ({
   );
 };
 
-export const GameEntry = ({ setShuffledWords, setGameStart }) => {
+export const GameEntry = ({
+  setShuffledWords,
+  setGameStart,
+  setLastTypedTime,
+}) => {
   const { selectedTopic, setSelectedTopic } = useContext(TopicContext);
   const { selectedUser, setSelectedUser } = useContext(UsersContext);
 
@@ -169,8 +184,7 @@ export const GameEntry = ({ setShuffledWords, setGameStart }) => {
     setGameStart(true);
     const shuffledArray = shuffleArray(selectedTopic.words);
     setShuffledWords(shuffledArray);
-    //recordTime();
-    // console.log(currentIndex);
+    setLastTypedTime(Date.now());
   }
 
   return (
@@ -185,19 +199,22 @@ export const GameEntry = ({ setShuffledWords, setGameStart }) => {
 };
 
 const GameContainer = () => {
-  const { scoreList, setTotalScore } = useContext(GameContext);
+  const { setTotalScore } = useContext(GameContext);
   const { selectedUser } = useContext(UsersContext);
+
   const [gameOver, setGameOver] = useState(false);
   const [shuffledWords, setShuffledWords] = useState([]);
   const [score, setScore] = useState(0);
   const [gameStart, setGameStart] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(15);
+  const [timeLeft, setTimeLeft] = useState(20);
   const [correctWordArr, setcorrectWordArr] = useState([]);
 
   const [storedScores, setStoredScores] = useState(() => {
     const storedScores = getFromStorage('scores');
     return storedScores || [];
   });
+
+  const [lastTypedTime, setLastTypedTime] = useState(null);
 
   const sendOBJToStorage = (key, newScoreObj) => {
     // Get the existing scores for this user
@@ -244,6 +261,8 @@ const GameContainer = () => {
             setGameStart={setGameStart}
           />
           <Game
+            lastTypedTime={lastTypedTime}
+            setLastTypedTime={setLastTypedTime}
             shuffledWords={shuffledWords}
             score={score}
             setScore={setScore}
@@ -254,6 +273,7 @@ const GameContainer = () => {
       ) : (
         <div>
           <GameEntry
+            setLastTypedTime={setLastTypedTime}
             setGameStart={setGameStart}
             setShuffledWords={setShuffledWords}
           />
@@ -261,7 +281,6 @@ const GameContainer = () => {
             filterScoresByUser={filterScoresByUser}
             setGameOver={setGameOver}
             gameOver={gameOver}
-            scoreList={scoreList}
           />
         </div>
       )}

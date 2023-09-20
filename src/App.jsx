@@ -15,17 +15,13 @@ function App() {
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [userName, setUserName] = useState('');
-
   const [users, setUsers] = useState(() => {
     const storedUsers = getFromStorage('users');
     return storedUsers || [];
   });
 
-  const [storedTime, setStoredTime] = useState({
-    instanceOne: null,
-    instanceTwo: null,
-  });
-  const [timeDifference, setTimeDifference] = useState(null);
+
+
   const [totalScore, setTotalScore] = useState({
     userScore: 0,
     userName: '',
@@ -57,10 +53,7 @@ function App() {
                 value={{      
                   totalScore,
                   setTotalScore,
-                  storedTime,
-                  setStoredTime,
-                  timeDifference,
-                  setTimeDifference,
+       
                 }}
               >
                 <div>
