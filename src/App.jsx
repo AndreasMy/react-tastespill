@@ -1,13 +1,13 @@
 import './App.css';
 import React, { useState } from 'react';
 import TopicSelection from './components/TopicSelection';
-import GameContainer from './components/GamePage';
+import GameContainer from './components/GameComponents';
 import topics from './data/elementData';
 import CreateUser from './components/UserComponents';
 import { getFromStorage } from './helpers/localStorage';
 import { UsersContext } from './helpers/userData.js';
 import { TopicContext } from './components/TopicSelection';
-import { GameContext } from './components/GamePage';
+import { GameContext } from './components/GameComponents';
 
 export const TimerContext = React.createContext();
 
@@ -26,16 +26,6 @@ function App() {
     instanceTwo: null,
   });
   const [timeDifference, setTimeDifference] = useState(null);
-
-  //? obsolete
-  const [scoreList, setScoreList] = useState([]);
-
-  const [storedScores, setStoredScores] = useState(() => {
-    const storedScores = getFromStorage('scores');
-    return storedScores || [];
-  });
-
-  const [timeLeft, setTimeLeft] = useState(15);
   const [totalScore, setTotalScore] = useState({
     userScore: 0,
     userName: '',
@@ -43,13 +33,6 @@ function App() {
     uuid: '',
     date: '',
   });
-
-  const [score, setScore] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [shuffledWords, setShuffledWords] = useState([]);
-  const [inputValue, setInputValue] = useState('');
-  const [gameStart, setGameStart] = useState(false);
-  const [correctWordArr, setcorrectWordArr] = useState([]);
 
   const handleSelectTopic = (topic) => {
     setSelectedTopic(topic);
@@ -71,27 +54,9 @@ function App() {
           <div>
             {selectedTopic ? (
               <GameContext.Provider
-                value={{
-                  setScore,
-                  score,
-                  scoreList,
-                  setScoreList,
-                  currentIndex,
-                  setCurrentIndex,
-                  shuffledWords,
-                  setShuffledWords,
-                  inputValue,
-                  setInputValue,
-                  gameStart,
-                  setGameStart,
-                  correctWordArr,
-                  setcorrectWordArr,
-                  timeLeft,
-                  setTimeLeft,
+                value={{      
                   totalScore,
                   setTotalScore,
-                  storedScores,
-                  setStoredScores,
                   storedTime,
                   setStoredTime,
                   timeDifference,

@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useContext, useMemo } from 'react';
-import { GameContext } from './GamePage';
+import { useEffect, useMemo } from 'react';
 
-const Timer = ({ setGameOver }) => {
-  const { setGameStart, timeLeft, setTimeLeft } = useContext(GameContext);
+const Timer = ({ setGameOver, setGameStart, timeLeft, setTimeLeft }) => {
   const initialTime = 15;
 
   useEffect(() => {

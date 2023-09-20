@@ -1,9 +1,9 @@
-import { useCallback, useContext, useEffect } from 'react';
-import { GameContext } from '../components/GamePage';
+/* import { useContext, useEffect } from 'react';
+import { GameContext } from '../components/GameComponents';
 import { shuffleArray } from '../helpers/utils';
-import { TopicContext } from '../components/TopicSelection';
+import { TopicContext } from '../components/TopicSelection'; */
 
-const useGameLogic = () => {
+/* const useGameLogic = () => {
   const {
     setScore,
     currentIndex,
@@ -14,8 +14,6 @@ const useGameLogic = () => {
     setcorrectWordArr,
     storedTime,
     setStoredTime,
-    timeDifference,
-    setTimeDifference,
   } = useContext(GameContext);
 
   useEffect(() => {
@@ -24,31 +22,8 @@ const useGameLogic = () => {
     }
   }, [correctWordArr, setScore]);
 
-  const triggerTimeBonus = useCallback(() => {
-    const timeMS = storedTime.instanceTwo - storedTime.instanceOne;
-    const timeS = timeMS / 1000;
-    setTimeDifference(timeS);
-  }, [setTimeDifference, storedTime.instanceOne, storedTime.instanceTwo]);
-
-  useEffect(() => {
-    if (storedTime.instanceOne !== null && storedTime.instanceTwo !== null) {
-      triggerTimeBonus();
-    }
-  }, [storedTime, triggerTimeBonus]);
-
-  useEffect(() => {
-    if (timeDifference !== null) {
-      const timeBonsuScore = Math.round(10 / timeDifference);
-      setScore((prevScore) => prevScore + timeBonsuScore);
-      setTimeDifference(null);
-      console.log('Time bonus! ' + timeBonsuScore);
-      console.log(timeDifference);
-    }
-  }, [setScore, timeDifference, setTimeDifference]);
-
   function scoreByWords() {
     if (inputValue === shuffledWords[currentIndex]) {
-      triggerTimeBonus();
       setcorrectWordArr([...correctWordArr, inputValue]);
       setScore((prevScore) => prevScore + 5);
     }
@@ -77,8 +52,8 @@ const useGameLogic = () => {
     }
   }
 
-  function evalLetters(inputString) {
-    const evalInput = scoreByLetters(inputString);
+  function evalLetters(inputValue) {
+    const evalInput = scoreByLetters(inputValue);
     setScore((prevScore) => prevScore + evalInput);
   }
 
@@ -107,9 +82,9 @@ const useGameLogic = () => {
     evalLetters,
     recordTime,
   };
-};
+}; */
 
-export const useGameInput = () => {
+/* export const useGameInput = () => {
   const { scoreByWords, recordTime } = useGameLogic();
 
   const {
@@ -117,27 +92,16 @@ export const useGameInput = () => {
     setInputValue,
     setShuffledWords,
     setGameStart,
-    timeDifference,
-    setStoredTime,
-    storedTime,
+
+    currentIndex,
   } = useContext(GameContext);
   const { selectedTopic } = useContext(TopicContext);
 
   function handleKeyDown(event) {
     if (event.key === ' ') {
-      recordTime();
       scoreByWords();
       setCurrentIndex((prevIndex) => prevIndex + 1);
       setInputValue('');
-      console.log(storedTime);
-
-      if (timeDifference !== null) {
-        setStoredTime((prevState) => ({
-          ...prevState,
-          instanceOne: null,
-          instanceTwo: null,
-        }));
-      }
     }
   }
 
@@ -145,12 +109,14 @@ export const useGameInput = () => {
     setGameStart(true);
     const shuffledArray = shuffleArray(selectedTopic.words);
     setShuffledWords(shuffledArray);
+    recordTime();
+    console.log(currentIndex);
   }
 
   return {
     handleKeyDown,
     handleStartBtn,
   };
-};
+}; */
 
-export default useGameLogic;
+//export default useGameLogic;
