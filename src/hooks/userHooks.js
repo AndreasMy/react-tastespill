@@ -13,7 +13,7 @@ const useUserHelpers = () => {
     console.log(newUser);
   };
 
-  // in UserSubmit
+  // in NewUserForm
   const handleSubmit = (e) => {
     e.preventDefault();
     handleCreateUser(0, userName);

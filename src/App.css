@@ -12,16 +12,27 @@
 .game-conatiner {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex: 1;
   flex-direction: column;
   min-height: 70vh;
   min-width: 70%;
   margin: 7% 5%;
-  padding: 18px;
+  padding: 28px;
+  border-radius: 12px;
   background-color: rgb(30, 31, 37);
 }
 
+.home-content-wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  height: 90%;
+}
+
 label,
+h1,
 h2,
 h3,
 h4,
@@ -30,10 +41,29 @@ li {
   color: antiquewhite;
 }
 
-.user-select-container,
+
 .user-select-list {
   display: flex;
+  justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
-  min-width: 90%;
+}
+
+.user-select-container {
+
+  margin: 40px 20%;
+}
+
+.user-button {
+  border: none;
+  border-radius: 4px;
+  padding: 12px;
+  margin: 5px;
+  height: 60px;
+  width: 90px;
+  color: rgb(0, 0, 0);
+  background-color: rgb(10, 184, 140);
+
+  font-size: 1rem;
+  font-weight: 600;
 }

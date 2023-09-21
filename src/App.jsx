@@ -1,21 +1,21 @@
 import './App.css';
 
-
 import React, { useState } from 'react';
 import topics from './data/elementData';
 import { getFromStorage } from './helpers/localStorage';
 import { UsersContext } from './helpers/userData.js';
 import { TopicContext } from './components/topics/TopicSelection';
 
-import { CreateUser } from './components/users/UserCreate';
-import TopicSelection from './components/topics/TopicSelection';
-import GameContainer from './components/game/Container';
+//import TopicSelection from './components/topics/TopicSelection';
+import GameContainer from './components/game/GameContainer';
+import HomePage from './components/users/HomePage';
 
 export const TimerContext = React.createContext();
 export const GameContext = React.createContext();
 
 function App() {
   const [selectedTopic, setSelectedTopic] = useState(null);
+  const [userSelected, setUserSelected] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [userName, setUserName] = useState('');
   const [users, setUsers] = useState(() => {
@@ -31,10 +31,6 @@ function App() {
     date: '',
   });
 
-  const handleSelectTopic = (topic) => {
-    setSelectedTopic(topic);
-  };
-
   return (
     <>
       <UsersContext.Provider
@@ -45,9 +41,13 @@ function App() {
           setSelectedUser,
           userName,
           setUserName,
+          userSelected,
+          setUserSelected,
         }}
       >
-        <TopicContext.Provider value={{ selectedTopic, setSelectedTopic }}>
+        <TopicContext.Provider
+          value={{ topics, selectedTopic, setSelectedTopic }}
+        >
           <div className='game-conatiner'>
             {selectedTopic ? (
               <GameContext.Provider
@@ -61,14 +61,7 @@ function App() {
                 </div>
               </GameContext.Provider>
             ) : (
-              <div>
-
-                <CreateUser />
-                <TopicSelection
-                  topics={topics}
-                  onSelectTopic={handleSelectTopic}
-                />
-              </div>
+              <HomePage />
             )}
           </div>
         </TopicContext.Provider>

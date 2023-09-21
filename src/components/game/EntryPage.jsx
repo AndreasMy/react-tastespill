@@ -3,19 +3,15 @@ import { useContext } from 'react';
 import { shuffleArray } from '../../helpers/utils';
 import { UsersContext } from '../../helpers/userData';
 import { TopicContext } from '../topics/TopicSelection';
+import BackButton from '../navigation/BackButton';
 
 export const GameEntry = ({
   setShuffledWords,
   setGameStart,
   setLastTypedTime,
 }) => {
-  const { selectedTopic, setSelectedTopic } = useContext(TopicContext);
-  const { selectedUser, setSelectedUser } = useContext(UsersContext);
-
-  function handleBackBtn() {
-    setSelectedTopic(null);
-    setSelectedUser(null);
-  }
+  const { selectedTopic } = useContext(TopicContext);
+  const { selectedUser } = useContext(UsersContext);
 
   function handleStartBtn() {
     setGameStart(true);
@@ -26,7 +22,7 @@ export const GameEntry = ({
 
   return (
     <div>
-      <button onClick={handleBackBtn}>Back</button>
+      <BackButton />
       <h2>Game Page</h2>
       <p>User: {selectedUser ? selectedUser.userName : 'None'} </p>
       <p>Selected topic: {selectedTopic.name}</p>
