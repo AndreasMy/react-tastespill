@@ -1,25 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useState, useContext, useEffect } from 'react';
-import { UsersContext } from '../../helpers/userData';
-import { GameInput } from './GameInputs';
-
-export const ScoreCounter = ({ score }) => {
-  return (
-    <div>
-      <p>Player Score</p>
-      <p> Score: {score ? score : 0}</p>
-    </div>
-  );
-};
-
-export const DisplayWord = ({ shuffledWords, currentIndex, inputValue }) => {
-  return (
-    <>
-      <h3>{shuffledWords[currentIndex]}</h3>
-      <h4>{inputValue}</h4>
-    </>
-  );
-};
+import { useState, useContext, useEffect } from "react";
+import { UsersContext } from "../../helpers/userData";
+import { GameInput } from "./Inputs";
+import { DisplayWord } from "./DisplayWord";
+import { ScoreCounter } from "./ScoreCounter";
 
 export const Game = ({
   lastTypedTime,
@@ -30,7 +14,7 @@ export const Game = ({
   setcorrectWordArr,
   correctWordArr,
 }) => {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [timeDifference, setTimeDifference] = useState(null);
 
@@ -60,8 +44,8 @@ export const Game = ({
   }
 
   function scoreByLetters(inputValue) {
-    let wordOne = '';
-    let wordTwo = '';
+    let wordOne = "";
+    let wordTwo = "";
 
     const [...splitShuffledWord] = shuffledWords[currentIndex];
     const [...inputToCompare] = inputValue;
@@ -90,7 +74,7 @@ export const Game = ({
   return (
     <>
       <h2>Game on!</h2>
-      <p>User: {selectedUser ? selectedUser.userName : 'None'} </p>
+      <p>User: {selectedUser ? selectedUser.userName : "None"} </p>
 
       <DisplayWord
         shuffledWords={shuffledWords}

@@ -8,10 +8,10 @@ import { getFromStorage } from '../../helpers/localStorage';
 
 import Timer from './Timer';
 import { Game } from './GamePage';
-import { GameEntry } from './GameEntryPage';
-import { PlayerScoreList } from './Timer';
+import { GameEntry } from './EntryPage';
+import { PlayerScoreList } from './ScoreList';
 
-const GameContainer = () => {
+ const GameContainer = () => {
   const { setTotalScore } = useContext(GameContext);
   const { selectedUser } = useContext(UsersContext);
 
@@ -101,4 +101,4 @@ const GameContainer = () => {
   );
 };
 
-export default GameContainer;
+export default GameContainer

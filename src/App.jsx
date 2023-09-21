@@ -7,9 +7,9 @@ import { getFromStorage } from './helpers/localStorage';
 import { UsersContext } from './helpers/userData.js';
 import { TopicContext } from './components/topics/TopicSelection';
 
-import CreateUser from './components/users/UserComponents';
+import { CreateUser } from './components/users/UserCreate';
 import TopicSelection from './components/topics/TopicSelection';
-import GameContainer from './components/game/GameContainer';
+import GameContainer from './components/game/Container';
 
 export const TimerContext = React.createContext();
 export const GameContext = React.createContext();
@@ -62,7 +62,7 @@ function App() {
               </GameContext.Provider>
             ) : (
               <div>
-                <h2>Entry Page</h2>
+
                 <CreateUser />
                 <TopicSelection
                   topics={topics}

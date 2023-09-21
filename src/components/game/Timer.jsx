@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useMemo } from 'react';
+import { useEffect,  } from "react";
 
 const Timer = ({ setGameOver, setGameStart, timeLeft, setTimeLeft }) => {
   const initialTime = 30;
@@ -21,31 +21,13 @@ const Timer = ({ setGameOver, setGameStart, timeLeft, setTimeLeft }) => {
     }
   }, [timeLeft, setGameOver, setGameStart, setTimeLeft]);
 
-  return <div>{timeLeft}</div>;
-};
-
-export const PlayerScoreList = ({
-  gameOver,
-  setGameOver,
-  filterScoresByUser,
-}) => {
-  useEffect(() => {
-    if (gameOver) {
-      setGameOver(false);
-    }
-  }, [gameOver, setGameOver]);
-
-  const scores = useMemo(() => filterScoresByUser(), [filterScoresByUser]);
-
   return (
     <div>
-      <ul>
-        {scores.map((score, id) => {
-          return <li key={id}>{score.userScore}</li>;
-        })}
-      </ul>
+      <p>{timeLeft}</p>
     </div>
   );
 };
+
+
 
 export default Timer;
