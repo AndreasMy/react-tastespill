@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { useContext, useState, useEffect } from 'react';
-import { GameContext } from '../../App';
 import { UsersContext } from '../../helpers/userData';
 
 import { getFromStorage } from '../../helpers/localStorage';
@@ -11,9 +10,8 @@ import { Game } from './GamePage';
 import { GameEntry } from './EntryPage';
 import { PlayerScoreList } from './ScoreList';
 
- const GameContainer = () => {
-  const { setTotalScore } = useContext(GameContext);
-  const { selectedUser } = useContext(UsersContext);
+const GameContainer = () => {
+  const { selectedUser, setTotalScore } = useContext(UsersContext);
 
   const [gameOver, setGameOver] = useState(false);
   const [shuffledWords, setShuffledWords] = useState([]);
@@ -101,4 +99,4 @@ import { PlayerScoreList } from './ScoreList';
   );
 };
 
-export default GameContainer
+export default GameContainer;

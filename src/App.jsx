@@ -6,12 +6,9 @@ import { getFromStorage } from './helpers/localStorage';
 import { UsersContext } from './helpers/userData.js';
 import { TopicContext } from './components/topics/TopicSelection';
 
-//import TopicSelection from './components/topics/TopicSelection';
-import GameContainer from './components/game/GameContainer';
 import HomePage from './components/users/HomePage';
 
 export const TimerContext = React.createContext();
-export const GameContext = React.createContext();
 
 function App() {
   const [selectedTopic, setSelectedTopic] = useState(null);
@@ -43,24 +40,15 @@ function App() {
           setUserName,
           userSelected,
           setUserSelected,
+          totalScore,
+          setTotalScore,
         }}
       >
         <TopicContext.Provider
           value={{ topics, selectedTopic, setSelectedTopic }}
         >
           <div className='game-conatiner'>
-            {selectedTopic ? (
-              <GameContext.Provider
-                value={{
-                  totalScore,
-                  setTotalScore,
-                }}
-              >
-                <GameContainer />
-              </GameContext.Provider>
-            ) : (
-              <HomePage />
-            )}
+            <HomePage />
           </div>
         </TopicContext.Provider>
       </UsersContext.Provider>

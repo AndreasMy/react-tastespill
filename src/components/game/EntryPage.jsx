@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
+import './styleGame.css'
 import { useContext } from 'react';
 import { shuffleArray } from '../../helpers/utils';
-import { UsersContext } from '../../helpers/userData';
+
 import { TopicContext } from '../topics/TopicSelection';
-import BackButton from '../navigation/BackButton';
 
 export const GameEntry = ({
   setShuffledWords,
@@ -11,7 +11,6 @@ export const GameEntry = ({
   setLastTypedTime,
 }) => {
   const { selectedTopic } = useContext(TopicContext);
-  const { selectedUser } = useContext(UsersContext);
 
   function handleStartBtn() {
     setGameStart(true);
@@ -21,11 +20,10 @@ export const GameEntry = ({
   }
 
   return (
-    <div>
-      <BackButton />
-      <h2>Game Page</h2>
-      <p>User: {selectedUser ? selectedUser.userName : 'None'} </p>
-      <p>Selected topic: {selectedTopic.name}</p>
+    <div className='game-entry'>
+      <p>
+        Selected topic: {selectedTopic ? selectedTopic.name : 'None selected'}
+      </p>
       <button onClick={handleStartBtn}>Start</button>
     </div>
   );

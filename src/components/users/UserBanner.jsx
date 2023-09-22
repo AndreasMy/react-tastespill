@@ -1,12 +1,14 @@
 import useUserHelpers from '../../hooks/userHooks';
 
-const UserStats = () => {
+import GameContainer from '../game/GameContainer';
+
+const UserBanner = () => {
   const { getFilteredUsers } = useUserHelpers();
 
   return (
     <div className='user-container'>
       {getFilteredUsers().map((user) => (
-        <li key={user.id}>
+        <div key={user.id}>
           <div className='user-banner'>
             <div className='user-banner-content'>
               <h2 className='user-banner-name'>{user.userName}</h2>
@@ -16,14 +18,13 @@ const UserStats = () => {
               </div>
             </div>
           </div>
-        </li>
+          <div className='main-game-container'>
+            <GameContainer />
+          </div>
+        </div>
       ))}
-      <br />
-      <p>Nice to have:</p>
-      <p>Biggest word streak</p>
-      <p>Number of games played</p>
     </div>
   );
 };
 
-export default UserStats;
+export default UserBanner;

@@ -2,7 +2,7 @@
 import { useContext } from 'react';
 import { UsersContext } from '../../helpers/userData';
 import useUserHelpers from '../../hooks/userHooks';
-import UserStats from './UserStats';
+import UserBanner from './UserBanner';
 
 export const UserSelectButton = () => {
   const { setSelectedUser, selectedUser, setUserSelected } =
@@ -33,7 +33,7 @@ export const UserSelectButton = () => {
           ))}
         </ul>
       ) : (
-        <UserStats />
+        <UserBanner />
       )}
     </div>
   );
