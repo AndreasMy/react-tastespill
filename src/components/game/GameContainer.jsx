@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useContext, useState, useEffect } from 'react';
 import { UsersContext } from '../../helpers/userData';
 
-import { getFromStorage } from '../../helpers/localStorage';
+import useUserHelpers from '../../hooks/userHooks';
 
 import Timer from './Timer';
 import { Game } from './GamePage';
@@ -11,7 +11,8 @@ import { GameEntry } from './EntryPage';
 import { PlayerScoreList } from './ScoreList';
 
 const GameContainer = () => {
-  const { selectedUser, setTotalScore } = useContext(UsersContext);
+  const { selectedUser, setTotalScore, setStoredScores } =
+    useContext(UsersContext);
 
   const [gameOver, setGameOver] = useState(false);
   const [shuffledWords, setShuffledWords] = useState([]);
@@ -20,23 +21,9 @@ const GameContainer = () => {
   const [timeLeft, setTimeLeft] = useState(30);
   const [correctWordArr, setcorrectWordArr] = useState([]);
 
-  const [storedScores, setStoredScores] = useState(() => {
-    const storedScores = getFromStorage('scores');
-    return storedScores || [];
-  });
-
   const [lastTypedTime, setLastTypedTime] = useState(null);
 
-  const sendOBJToStorage = (key, data) => {
-    // Get the existing scores for this user
-    const existingScores = JSON.parse(localStorage.getItem(key)) || [];
-    const updatedScores = [...existingScores, data];
-    localStorage.setItem(key, JSON.stringify(updatedScores));
-  };
-
-  const filterScoresByUser = () => {
-    return storedScores.filter((score) => score.userID === selectedUser.id);
-  };
+  const { filterScoresByUser, sendOBJToStorage } = useUserHelpers();
 
   useEffect(() => {
     if (!timeLeft) {
@@ -59,7 +46,14 @@ const GameContainer = () => {
       setTotalScore(0);
       setcorrectWordArr([]);
     }
-  }, [timeLeft, selectedUser, score, setTotalScore]);
+  }, [
+    timeLeft,
+    selectedUser,
+    score,
+    setTotalScore,
+    setStoredScores,
+    sendOBJToStorage,
+  ]);
 
   return (
     <>

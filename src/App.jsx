@@ -2,6 +2,7 @@ import './App.css';
 
 import React, { useState } from 'react';
 import topics from './data/elementData';
+
 import { getFromStorage } from './helpers/localStorage';
 import { UsersContext } from './helpers/userData.js';
 import { TopicContext } from './components/topics/TopicSelection';
@@ -15,9 +16,26 @@ function App() {
   const [userSelected, setUserSelected] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [userName, setUserName] = useState('');
+
   const [users, setUsers] = useState(() => {
     const storedUsers = getFromStorage('users');
     return storedUsers || [];
+  });
+
+  const [storedScores, setStoredScores] = useState(() => {
+    const storedScores = getFromStorage('scores');
+    return storedScores || [];
+  });
+
+  const [storedUserStats, setStoredUserStat] = useState(() => {
+    const storedStats = getFromStorage('stats');
+    return storedStats || [];
+  });
+
+  const [userStats, setUserStat] = useState({
+    id: '',
+    highScore: 0,
+    gamesPlayed: 0,
   });
 
   const [totalScore, setTotalScore] = useState({
@@ -42,6 +60,12 @@ function App() {
           setUserSelected,
           totalScore,
           setTotalScore,
+          storedScores,
+          setStoredScores,
+          userStats,
+          setUserStat,
+          storedUserStats,
+          setStoredUserStat,
         }}
       >
         <TopicContext.Provider

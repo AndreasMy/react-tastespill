@@ -12,10 +12,13 @@ const TopicSelection = () => {
   };
 
   return (
-    <div className='topic-select-container'>
-      {topics.map((topic) => (
-        <TopicSelectBtn key={topic.id} topic={topic} />
-      ))}
+    <div className='main-topic-container'>
+      <h2 className='topic-header'>Pick a topic</h2>
+      <div className='topic-select-container'>
+        {topics.map((topic) => (
+          <TopicSelectBtn key={topic.id} topic={topic} />
+        ))}
+      </div>
     </div>
   );
 };

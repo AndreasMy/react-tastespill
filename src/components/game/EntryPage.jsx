@@ -21,9 +21,6 @@ export const GameEntry = ({
 
   return (
     <div className='game-entry'>
-      <p>
-        Selected topic: {selectedTopic ? selectedTopic.name : 'None selected'}
-      </p>
       <button onClick={handleStartBtn}>Start</button>
     </div>
   );

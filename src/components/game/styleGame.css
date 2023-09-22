@@ -1,0 +1,10 @@
+.main-game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
+    align-items: center;
+
+    max-width: 540px;
+    min-height: 40vh;
+    width: 100%;
+  }
