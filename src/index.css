@@ -6,10 +6,14 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+body {
+  background-color: rgb(23, 23, 27);
+}
+
 button {
   border: none;
   border-radius: 4px;
-  padding: 12px;
+  padding: 14px;
   margin: 3px;
   min-height: 22px;
   min-width: 80px;
@@ -24,8 +28,12 @@ input {
   text-indent: 5px;
 }
 
+.back-button {
+  align-self: flex-start;
+}
+
 .player-form-container {
-  margin: 20px 0 20px 0;
+  margin: 20px 0 0 0;
 }
 
 .user-submit-btn {
@@ -39,6 +47,27 @@ input {
   color: rgb(0, 0, 0);
 }
 
-body {
-  background-color: rgb(41, 47, 51);
+.home-main-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  flex-direction: column;
+  padding: 28px 28px 88px 28px;
+  border-radius: 12px;
+  min-width: 100%;
+}
+
+.game-conatiner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  flex-direction: column;
+  height: 75vh;
+  max-width: 1050px;
+  margin: 7% 5%;
+  padding: 0 28px;
+  border-radius: 12px;
+  background-color: rgb(30, 31, 37);
 }

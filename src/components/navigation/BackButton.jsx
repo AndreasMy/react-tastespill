@@ -12,7 +12,7 @@ const BackButton = () => {
     setSelectedUser(null);
   }
 
-  return <button onClick={handleBackBtn}>Back</button>;
+  return <button onClick={handleBackBtn} className='back-button'>Back</button>;
 };
 
 export default BackButton;

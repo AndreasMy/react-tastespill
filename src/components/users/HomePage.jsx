@@ -10,20 +10,18 @@ const HomePage = () => {
   //* useState
   //logic
   return (
-    <div className='home-content-wrapper'>
+    <div className='home-main-wrapper'>
       {userSelected === false ? (
-        <>
-          <h1>Welcome</h1>
+        <div className='home-content-wrapper'>
           <NewUserForm />
           <UserSelect />
-        </>
+        </div>
       ) : (
-        <>
-          <h1>Welcome</h1>
+        <div className='home-content-wrapper'>
           <BackButton />
           <UserSelect />
           <TopicSelection />
-        </>
+        </div>
       )}
     </div>
   );

@@ -3,13 +3,20 @@ import { useContext } from 'react';
 import { UsersContext } from '../helpers/userData';
 
 const useUserHelpers = () => {
-  const { setUsers, setSelectedUser, userName, setUserName } =
-    useContext(UsersContext);
+  const {
+    setUsers,
+    //setSelectedUser,
+    userName,
+    setUserName,
+    users,
+    selectedUser,
+    userSelected,
+  } = useContext(UsersContext);
 
   const handleCreateUser = (userScore, userName) => {
     const newUser = createUser(userScore, userName);
     setUsers((prevUsers) => [...prevUsers, newUser]);
-    setSelectedUser(newUser);
+  //  setSelectedUser(newUser);
     console.log(newUser);
   };
 
@@ -20,8 +27,20 @@ const useUserHelpers = () => {
     setUserName('');
   };
 
+  const getFilteredUsers = () => {
+    //* Use form validation instead?
+    if (userSelected) {
+      return users.filter(
+        (user) =>
+          user.userName === selectedUser.userName && user.id === selectedUser.id
+      );
+    }
+    return users;
+  };
+
   return {
     handleSubmit,
+    getFilteredUsers,
   };
 };
 

@@ -56,9 +56,7 @@ function App() {
                   setTotalScore,
                 }}
               >
-                <div>
-                  <GameContainer />
-                </div>
+                <GameContainer />
               </GameContext.Provider>
             ) : (
               <HomePage />
