@@ -49,7 +49,12 @@ export const NewUserForm = () => {
             placeholder='Your Name'
             type='text'
             value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            onChange={(e) => {
+              // minimal placeholder validation
+              let newValue = e.target.value.replace(/[^a-zA-Z]/g, '');
+              newValue = newValue.substring(0, 10);
+              setUserName(newValue);
+            }}
           ></input>
           <button type='submit' className='user-submit-btn'>
             Submit

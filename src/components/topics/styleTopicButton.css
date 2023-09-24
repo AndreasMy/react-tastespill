@@ -18,12 +18,17 @@
 }
 
 .topic-btn {
-  background-color: rgb(31, 144, 197);
+  transition: background-color 0.06s ease-in;
+  transition: background-color 0.3s ease-out;
+
+  box-shadow: 0px 25px 20px -20px rgba(0, 0, 0, 0.404);
+  background-color: rgb(49, 52, 63);
   color: antiquewhite;
   font-size: 1.3rem;
-  width: 320px;
-  height: 120px;
-  margin: 8px;
+  width: 230px;
+  height: 80px;
+  margin: 12px;
+  border-radius: 8px;
 }
 
 .main-topic-container,
