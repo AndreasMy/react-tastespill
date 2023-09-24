@@ -5,21 +5,25 @@ export const TopicContext = React.createContext();
 const TopicSelection = () => {
   const { topics, setSelectedTopic } = useContext(TopicContext);
 
-  const TopicSelectBtn = ({ topic }) => {
-    return (
-      <button onClick={() => setSelectedTopic(topic)}>{topic.name}</button>
-    );
-  };
-
   return (
-    <div className='main-topic-container'>
-      <h2 className='topic-header'>Pick a topic</h2>
+    <>
       <div className='topic-select-container'>
-        {topics.map((topic) => (
-          <TopicSelectBtn key={topic.id} topic={topic} />
-        ))}
+        <h2 className='topic-header'>Pick a topic</h2>
+        <ul>
+          {topics.map((topic) => (
+            <li key={topic.id}>
+              <button
+                onClick={() => setSelectedTopic(topic)}
+                className='topic-btn'
+                style={{ backgroundColor: topic.color }}
+              >
+                {topic.name}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
+    </>
   );
 };
 

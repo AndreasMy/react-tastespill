@@ -72,45 +72,55 @@ p {
   justify-content: center;
   margin: 25px 0;
   width: 100%;
-  max-height: 60vh;
+  min-height: 40vh;
+}
+
+.topic-btn {
+  background-color: rgb(31, 144, 197);
+  color: antiquewhite;
+  font-size: 1.3rem;
+  width: 320px;
+  height: 120px;
+  margin: 8px;
 }
 
 .main-topic-container {
-
   display: flex;
   flex-direction: column;
   display: flex;
   align-items: center;
-  min-width: 100%
+  min-width: 100%;
 }
 
-.user-container {
+.main-topic-container,
+main-game-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   min-width: 100%;
   flex: 1;
-}
 
-.user-container,
-.main-topic-container {
   min-width: 100%;
   min-height: 100%;
   width: 100%;
 }
 
 .user-banner {
-  background-color: rgb(10, 184, 140);
   border-radius: 5px 5px 0 0;
   min-width: 100%;
 }
 
 .user-footer {
-  min-width: 540px;
+  min-width: 100%;
   min-height: 55px;
   background-color: rgb(10, 184, 140);
   border-radius: 0 0 5px 5px;
+}
+
+.user-banner,
+.user-footer {
+  background-color: rgb(42, 45, 51);
 }
 
 .user-banner-content {
@@ -143,6 +153,7 @@ p {
   border-radius: 5px;
   margin: 5px 12px;
 }
+
 
 .user-button-wrapper {
   display: flex;

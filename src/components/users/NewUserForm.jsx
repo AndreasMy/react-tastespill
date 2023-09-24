@@ -17,6 +17,7 @@ export const NewUserForm = () => {
   return (
     <div className='player-form-container'>
       <form onSubmit={handleSubmit}>
+        <label htmlFor="createUser">Create New User: </label>
         <input
           id='createUser'
           placeholder='Your Name'
