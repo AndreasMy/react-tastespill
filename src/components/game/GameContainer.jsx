@@ -18,7 +18,7 @@ const GameContainer = () => {
   const [shuffledWords, setShuffledWords] = useState([]);
   const [score, setScore] = useState(0);
   const [gameStart, setGameStart] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(30);
+  const [timeLeft, setTimeLeft] = useState(300);
   const [correctWordArr, setcorrectWordArr] = useState([]);
 
   const [lastTypedTime, setLastTypedTime] = useState(null);

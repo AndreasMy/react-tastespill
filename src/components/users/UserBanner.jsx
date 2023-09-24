@@ -1,11 +1,12 @@
 import useUserHelpers from '../../hooks/userHooks';
 
 import { TopicContext } from '../topics/TopicSelection';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 
 import TopicSelection from '../topics/TopicSelection';
 import GameContainer from '../game/GameContainer';
 import UserHighScore from '../game/HighScore';
+import Footer from '../common/Footer';
 
 const UserBanner = () => {
   const { getFilteredUsers } = useUserHelpers();
@@ -14,8 +15,11 @@ const UserBanner = () => {
   return (
     <div className='user-container'>
       {getFilteredUsers().map((user) => (
-        <div key={user.id}>
-          <div className='user-banner'>
+        <React.Fragment key={user.id}>
+          <div
+            className='user-banner'
+            style={{ backgroundColor: user.userColor }}
+          >
             <div className='user-banner-content'>
               <h2 className='user-banner-name'>{user.userName}</h2>
               <div className='banner-score-container'>
@@ -23,6 +27,7 @@ const UserBanner = () => {
               </div>
             </div>
           </div>
+
           {selectedTopic ? (
             <div className='main-game-container'>
               <GameContainer />
@@ -30,8 +35,9 @@ const UserBanner = () => {
           ) : (
             <TopicSelection />
           )}
-        </div>
+        </React.Fragment>
       ))}
+      <Footer />
     </div>
   );
 };

@@ -17,29 +17,32 @@ export const UserSelectButton = () => {
   };
 
   return (
-    <div className='user-select-container'>
+    <>
       {!selectedUser ? (
-        <ul className='user-container user-select-list'>
-          {getFilteredUsers().map((user, index) => (
-            <li key={user.id}>
-              <div className='user-button-wrapper'>
-                <button
-                  className='user-button'
-                  onClick={() => handleUserSelect(user)}
-                >
-                  {user.userName}
-                </button>
+        <div className='user-select-container'>
+          <ul className='user-select-list'>
+            {getFilteredUsers().map((user, index) => (
+              <li key={user.id}>
+                <div className='user-button-wrapper'>
+                  <button
+                    className='user-button'
+                    onClick={() => handleUserSelect(user)}
+                    style={{ backgroundColor: user.userColor }}
+                  >
+                    {user.userName}
+                  </button>
 
-                <p className='user-stat'>High score: {user.highScore} </p>
-                <p className='user-stat'>Games played: {user.timesPlayed} </p>
-                <p className='user-stat'>Rank: {index + 1} </p>
-              </div>
-            </li>
-          ))}
-        </ul>
+                  <p className='user-stat'>High score: {user.highScore} </p>
+                  <p className='user-stat'>Games played: {user.timesPlayed} </p>
+                  <p className='user-stat'>Rank: {index + 1} </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : (
         <UserBanner />
       )}
-    </div>
+    </>
   );
 };

@@ -5,7 +5,6 @@ import { UsersContext } from '../helpers/userData';
 const useUserHelpers = () => {
   const {
     setUsers,
-    //setSelectedUser,
     userName,
     setUserName,
     users,
@@ -56,6 +55,7 @@ const useUserHelpers = () => {
       const highScores = scores.reduce((a, b) => Math.max(a, b.userScore), 0);
       const userName = user.userName;
       const timesPlayed = scores.length;
+      const color = user.userColor
 
       return {
         id: user.id,
@@ -63,6 +63,7 @@ const useUserHelpers = () => {
         highScore: highScores,
         userName: userName,
         timesPlayed: timesPlayed,
+        userColor: color
       };
     });
     //console.log(userStatsArray);
