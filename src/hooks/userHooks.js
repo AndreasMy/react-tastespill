@@ -1,30 +1,15 @@
-import createUser from '../helpers/userData';
+// import createUser from '../helpers/userData';
 import { useContext } from 'react';
 import { UsersContext } from '../helpers/userData';
 
 const useUserHelpers = () => {
   const {
-    setUsers,
-    userName,
-    setUserName,
+
     users,
     selectedUser,
     userSelected,
     storedScores,
   } = useContext(UsersContext);
-
-  const handleCreateUser = (userScore, userName) => {
-    const newUser = createUser(userScore, userName);
-    setUsers((prevUsers) => [...prevUsers, newUser]);
-    console.log(newUser);
-  };
-
-  // in NewUserForm
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleCreateUser(0, userName);
-    setUserName('');
-  };
 
   const getFilteredUsers = () => {
     const userStats = sortUserByScore();
@@ -87,7 +72,7 @@ const useUserHelpers = () => {
   };
 
   return {
-    handleSubmit,
+
     getFilteredUsers,
     filterScoresByUser,
     sendOBJToStorage,

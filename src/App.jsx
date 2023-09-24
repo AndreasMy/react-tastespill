@@ -1,6 +1,6 @@
 import './App.css';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import topics from './data/elementData';
 
 import { getFromStorage } from './helpers/localStorage';
@@ -13,6 +13,8 @@ import HomePage from './components/users/HomePage';
 export const TimerContext = React.createContext();
 
 function App() {
+  const [gameStart, setGameStart] = useState(false);
+
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [userSelected, setUserSelected] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -47,6 +49,8 @@ function App() {
     date: '',
   });
 
+  const containerRef = useRef(null);
+
   return (
     <>
       <UsersContext.Provider
@@ -67,6 +71,9 @@ function App() {
           setUserStat,
           storedUserStats,
           setStoredUserStat,
+          containerRef,
+          gameStart,
+          setGameStart,
         }}
       >
         <TopicContext.Provider

@@ -4,13 +4,15 @@ import { useContext } from 'react';
 import { shuffleArray } from '../../helpers/utils';
 
 import { TopicContext } from '../topics/TopicSelection';
+import { UsersContext } from '../../helpers/userData';
 
 export const GameEntry = ({
   setShuffledWords,
-  setGameStart,
+
   setLastTypedTime,
 }) => {
   const { selectedTopic } = useContext(TopicContext);
+  const {setGameStart} = useContext(UsersContext)
 
   function handleStartBtn() {
     setGameStart(true);

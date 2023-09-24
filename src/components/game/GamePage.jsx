@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+
+import { UsersContext } from '../../helpers/userData';
 
 import { GameInput } from './Inputs';
 import { DisplayWord } from './DisplayWord';
@@ -17,11 +19,14 @@ export const Game = ({
   timeLeft, // Added
   setTimeLeft, // Added
   setGameOver, // Added
-  setGameStart, // Added
+   // Added
 }) => {
   const [inputValue, setInputValue] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [timeDifference, setTimeDifference] = useState(null);
+
+  const {  setGameStart } =
+  useContext(UsersContext);
 
   useEffect(() => {
     if (correctWordArr.length % 3 === 0 && correctWordArr.length !== 0) {

@@ -6,7 +6,7 @@ import UserBanner from './UserBanner';
 //import UserHighScore from '../game/HighScore';
 
 export const UserSelectButton = () => {
-  const { setSelectedUser, selectedUser, setUserSelected } =
+  const { setSelectedUser, selectedUser, setUserSelected, containerRef } =
     useContext(UsersContext);
 
   const { getFilteredUsers } = useUserHelpers();
@@ -20,7 +20,7 @@ export const UserSelectButton = () => {
     <>
       {!selectedUser ? (
         <div className='user-select-container'>
-          <ul className='user-select-list'>
+          <ul ref={containerRef} className='user-select-list'>
             {getFilteredUsers().map((user, index) => (
               <li key={user.id}>
                 <div className='user-button-wrapper'>

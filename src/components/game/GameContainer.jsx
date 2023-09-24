@@ -11,13 +11,15 @@ import { GameEntry } from './EntryPage';
 import { PlayerScoreList } from './ScoreList';
 
 const GameContainer = () => {
-  const { selectedUser, setTotalScore, setStoredScores } =
+  const { selectedUser, setTotalScore, setStoredScores, gameStart } =
     useContext(UsersContext);
 
   const [gameOver, setGameOver] = useState(false);
   const [shuffledWords, setShuffledWords] = useState([]);
   const [score, setScore] = useState(0);
-  const [gameStart, setGameStart] = useState(false);
+
+  //const [gameStart, setGameStart] = useState(false);
+
   const [timeLeft, setTimeLeft] = useState(900);
   const [correctWordArr, setcorrectWordArr] = useState([]);
 
@@ -70,14 +72,14 @@ const GameContainer = () => {
             timeLeft={timeLeft}
             setTimeLeft={setTimeLeft}
             setGameOver={setGameOver}
-            setGameStart={setGameStart}
+
           />
         </>
       ) : (
         <>
           <GameEntry
             setLastTypedTime={setLastTypedTime}
-            setGameStart={setGameStart}
+    
             setShuffledWords={setShuffledWords}
           />
           <PlayerScoreList

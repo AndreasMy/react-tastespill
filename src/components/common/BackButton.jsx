@@ -4,7 +4,8 @@ import { UsersContext } from '../../helpers/userData';
 
 const BackButton = () => {
   const { setSelectedTopic } = useContext(TopicContext);
-  const { setSelectedUser, setUserSelected } = useContext(UsersContext);
+  const { setSelectedUser, setUserSelected, gameStart } =
+    useContext(UsersContext);
 
   function handleBackBtn() {
     setUserSelected(false);
@@ -12,7 +13,15 @@ const BackButton = () => {
     setSelectedUser(null);
   }
 
-  return <button onClick={handleBackBtn} className='back-button'>Back</button>;
+  return (
+    <button
+      disabled={gameStart}
+      onClick={handleBackBtn}
+      className='back-button'
+    >
+      Back
+    </button>
+  );
 };
 
 export default BackButton;

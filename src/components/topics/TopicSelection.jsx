@@ -8,7 +8,7 @@ const TopicSelection = () => {
   return (
     <>
       <div className='topic-select-container'>
-        <h2 className='topic-header'>Pick a topic</h2>
+
         <ul>
           {topics.map((topic) => (
             <li key={topic.id}>
