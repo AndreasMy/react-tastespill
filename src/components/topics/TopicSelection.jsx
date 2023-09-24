@@ -4,7 +4,7 @@ export const TopicContext = React.createContext();
 
 const TopicSelection = () => {
   const { topics, setSelectedTopic } = useContext(TopicContext);
-
+  
   return (
     <>
       <div className='topic-select-container'>

@@ -1,0 +1,38 @@
+
+
+.user-banner {
+    border-radius: 5px 5px 0 0;
+    min-width: 100%;
+  }
+  
+  .user-footer {
+    min-width: 100%;
+    min-height: 55px;
+    background-color: rgb(10, 184, 140);
+    border-radius: 0 0 5px 5px;
+  }
+  
+  .user-banner,
+  .user-footer {
+    background-color: rgb(42, 45, 51);
+  }
+  
+  .user-banner-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  
+    margin: 0 12px;
+    text-align: center;
+    padding: 8px;
+  }
+  
+  .user-banner-name {
+    color: black;
+  }
+
+  .back-button {
+    height: 30px;
+    padding: 0;
+  }

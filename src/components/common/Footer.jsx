@@ -4,15 +4,12 @@ import { useContext } from 'react';
 import { UsersContext } from '../../helpers/userData';
 
 const Footer = () => {
-  const { selectedUser, userSelected } = useContext(UsersContext);
+  const { userSelected } = useContext(UsersContext);
 
   return (
     <>
       {userSelected ? (
-        <footer
-          className='user-footer'
-          style={{ backgroundColor: selectedUser.userColor }}
-        ></footer>
+        <footer className='user-footer'></footer>
       ) : (
         <>
           <div className='user-footer'></div>

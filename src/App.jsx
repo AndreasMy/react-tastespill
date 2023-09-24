@@ -72,7 +72,7 @@ function App() {
         <TopicContext.Provider
           value={{ topics, selectedTopic, setSelectedTopic }}
         >
-          <div className='game-conatiner'>
+          <div className='game-container'>
             <HomePage />
           </div>
         </TopicContext.Provider>

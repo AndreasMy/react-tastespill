@@ -5,7 +5,7 @@ import { UsersContext } from '../../helpers/userData';
 
 import useUserHelpers from '../../hooks/userHooks';
 
-import Timer from './Timer';
+//import Timer from './Timer';
 import { Game } from './GamePage';
 import { GameEntry } from './EntryPage';
 import { PlayerScoreList } from './ScoreList';
@@ -58,13 +58,7 @@ const GameContainer = () => {
   return (
     <>
       {gameStart ? (
-        <div>
-          <Timer
-            timeLeft={timeLeft}
-            setTimeLeft={setTimeLeft}
-            setGameOver={setGameOver}
-            setGameStart={setGameStart}
-          />
+        <>
           <Game
             lastTypedTime={lastTypedTime}
             setLastTypedTime={setLastTypedTime}
@@ -73,10 +67,14 @@ const GameContainer = () => {
             setScore={setScore}
             correctWordArr={correctWordArr}
             setcorrectWordArr={setcorrectWordArr}
+            timeLeft={timeLeft}
+            setTimeLeft={setTimeLeft}
+            setGameOver={setGameOver}
+            setGameStart={setGameStart}
           />
-        </div>
+        </>
       ) : (
-        <div>
+        <>
           <GameEntry
             setLastTypedTime={setLastTypedTime}
             setGameStart={setGameStart}
@@ -87,7 +85,7 @@ const GameContainer = () => {
             setGameOver={setGameOver}
             gameOver={gameOver}
           />
-        </div>
+        </>
       )}
     </>
   );

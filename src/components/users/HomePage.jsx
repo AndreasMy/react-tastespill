@@ -1,8 +1,8 @@
-import './styleUsers.css';
+
 import { UserSelect } from './UserSelect';
 
 import Footer from '../common/Footer';
-import Header from './Header';
+import Header from '../common/Header';
 
 const HomePage = () => {
 

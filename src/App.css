@@ -1,13 +1,9 @@
-#root {
-  min-height: 100vh;
-  min-width: 100%;
+@import url(./components/common/styleCommon.css);
+@import url(./components/game/styleGame.css);
+@import url(./components/users/styleUsers.css);
+@import url(./components/topics/styleTopicButton.css);
+@import url(./components/users/styleUserScrollbar.css);
 
-  box-sizing: border-box;
-
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
 
 label,
 h1,
@@ -19,13 +15,3 @@ li {
   color: antiquewhite;
 }
 
-.topic-select-container {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  margin: 0 0 12% 0;
-}
-
-.topic-header {
-  margin: 0 0 10px 0;
-}

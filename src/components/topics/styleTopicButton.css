@@ -1,0 +1,41 @@
+.main-topic-container {
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  min-width: 100%;
+}
+
+.topic-select-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 0 0 12% 0;
+}
+
+.topic-header {
+  margin: 0 0 10px 0;
+}
+
+.topic-btn {
+  background-color: rgb(31, 144, 197);
+  color: antiquewhite;
+  font-size: 1.3rem;
+  width: 320px;
+  height: 120px;
+  margin: 8px;
+}
+
+.main-topic-container,
+.main-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 100%;
+  flex: 1;
+
+  min-width: 100%;
+  min-height: 100%;
+  width: 100%;
+}

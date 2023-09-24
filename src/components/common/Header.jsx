@@ -4,7 +4,7 @@ import { UsersContext } from '../../helpers/userData';
 
 import useUserHelpers from '../../hooks/userHooks';
 import UserHighScore from '../game/HighScore';
-import { NewUserForm } from './NewUserForm';
+import { NewUserForm } from '../users/NewUserForm';
 
 const Header = () => {
   const { getFilteredUsers } = useUserHelpers();
@@ -15,12 +15,14 @@ const Header = () => {
       {userSelected ? (
         getFilteredUsers().map((user) => (
           <React.Fragment key={user.id}>
-            <header
-              className='user-banner'
-              style={{ backgroundColor: user.userColor }}
-            >
+            <header className='user-banner'>
               <div className='user-banner-content'>
-                <h2 className='user-banner-name'>{user.userName}</h2>
+                <h2
+                  className='user-banner-name'
+                  style={{ color: user.userColor }}
+                >
+                  {user.userName}
+                </h2>
                 <div className='banner-score-container'>
                   <UserHighScore />
                 </div>

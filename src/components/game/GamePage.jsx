@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { GameInput } from './Inputs';
 import { DisplayWord } from './DisplayWord';
 import { ScoreCounter } from './ScoreCounter';
+import Timer from './Timer';
 
 export const Game = ({
   lastTypedTime,
@@ -13,6 +14,10 @@ export const Game = ({
   setScore,
   setcorrectWordArr,
   correctWordArr,
+  timeLeft, // Added
+  setTimeLeft, // Added
+  setGameOver, // Added
+  setGameStart, // Added
 }) => {
   const [inputValue, setInputValue] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -70,26 +75,40 @@ export const Game = ({
   }
 
   return (
-    <>
-      <DisplayWord
-        shuffledWords={shuffledWords}
-        currentIndex={currentIndex}
-        inputValue={inputValue}
-      />
-      <ScoreCounter
-        timeDifference={timeDifference}
-        setTimeDifference={setTimeDifference}
-        score={score}
-        setScore={setScore}
-      />
-      <GameInput
-        currentIndex={currentIndex}
-        evalLetters={evalLetters}
-        scoreByWords={scoreByWords}
-        setCurrentIndex={setCurrentIndex}
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-      />
-    </>
+    <div className='game-wrapper'>
+      <div className='game-col col-left'>
+        <ScoreCounter
+          timeDifference={timeDifference}
+          setTimeDifference={setTimeDifference}
+          score={score}
+          setScore={setScore}
+        />
+      </div>
+      <div className='game-col game-input-container'>
+        <div className='g-input-container'>
+          <DisplayWord
+            shuffledWords={shuffledWords}
+            currentIndex={currentIndex}
+            inputValue={inputValue}
+          />
+          <GameInput
+            currentIndex={currentIndex}
+            evalLetters={evalLetters}
+            scoreByWords={scoreByWords}
+            setCurrentIndex={setCurrentIndex}
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+          />
+        </div>
+      </div>
+      <div className='game-col col-right'>
+        <Timer
+          timeLeft={timeLeft}
+          setTimeLeft={setTimeLeft}
+          setGameOver={setGameOver}
+          setGameStart={setGameStart}
+        />
+      </div>
+    </div>
   );
 };

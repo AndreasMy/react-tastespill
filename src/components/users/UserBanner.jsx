@@ -7,17 +7,7 @@ import GameContainer from '../game/GameContainer';
 const UserBanner = () => {
   const { selectedTopic } = useContext(TopicContext);
 
-  return (
-    <>
-      {selectedTopic ? (
-        <div className='main-game-container'>
-          <GameContainer />
-        </div>
-      ) : (
-        <TopicSelection />
-      )}
-    </>
-  );
+  return <>{selectedTopic ? <GameContainer /> : <TopicSelection />}</>;
 };
 
 export default UserBanner;

@@ -6,6 +6,19 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+#root {
+  min-height: 100vh;
+  max-height: 100vh;
+  min-width: 100%;
+
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+
 body {
   background-color: rgb(23, 23, 27);
 }
@@ -19,12 +32,12 @@ button {
   min-height: 22px;
   min-width: 80px;
   color: rgb(0, 0, 0);
-/*   background-color: rgb(10, 184, 140); */
+  /*   background-color: rgb(10, 184, 140); */
   font-size: 1rem;
   font-weight: 600;
 }
 
-.game-conatiner {
+.game-container {
   display: flex;
   align-items: center;
   justify-content: center;
