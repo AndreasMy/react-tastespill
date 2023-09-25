@@ -28,7 +28,6 @@ export const GameInput = ({
           className='game-input'
           type='text'
           value={inputValue}
-          placeholder='...'
           autoFocus
           onChange={(e) => {
             const newValue = e.target.value.replace(/ /g, '');

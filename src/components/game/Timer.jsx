@@ -2,7 +2,7 @@
 import { useEffect,  } from "react";
 
 const Timer = ({ setGameOver, setGameStart, timeLeft, setTimeLeft }) => {
-  const initialTime = 15;
+  const initialTime = 120;
 
   useEffect(() => {
     const intervalId = setInterval(() => {

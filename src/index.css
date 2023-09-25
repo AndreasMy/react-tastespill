@@ -12,13 +12,10 @@
   max-height: 100vh;
   min-width: 100%;
 
-
-
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
-
 
 body {
   background-color: rgb(23, 23, 27);
@@ -36,6 +33,12 @@ button {
   /*   background-color: rgb(10, 184, 140); */
   font-size: 1rem;
   font-weight: 600;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .game-container {
@@ -59,5 +62,4 @@ button {
   align-items: center;
   justify-content: space-between;
   min-width: 100%;
-
 }

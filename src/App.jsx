@@ -16,6 +16,7 @@ function App() {
   const [gameStart, setGameStart] = useState(false);
 
   const [selectedTopic, setSelectedTopic] = useState(null);
+  
   const [userSelected, setUserSelected] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [userName, setUserName] = useState('');

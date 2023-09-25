@@ -1,18 +1,22 @@
 import '../users/styleUsers.css';
 
 import { useContext } from 'react';
-import { UsersContext } from '../../helpers/userData';
+import { TopicContext } from '../topics/TopicSelection';
 
 const Footer = () => {
-  const { userSelected } = useContext(UsersContext);
+  const { selectedTopic } = useContext(TopicContext);
 
   return (
     <>
-      {userSelected ? (
-        <footer className='user-footer'></footer>
+      {selectedTopic ? (
+        <footer className='user-footer'>
+          <h2 className='footer-topic' style={{ color: selectedTopic.color }}>
+            {selectedTopic.name}{' '}
+          </h2>
+        </footer>
       ) : (
         <>
-          <div className='user-footer'></div>
+          <footer className='user-footer'></footer>
         </>
       )}
     </>

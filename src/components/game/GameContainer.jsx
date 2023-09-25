@@ -21,7 +21,7 @@ const GameContainer = () => {
 
   //const [gameStart, setGameStart] = useState(false);
 
-  const [timeLeft, setTimeLeft] = useState(900);
+  const [timeLeft, setTimeLeft] = useState(120);
   const [correctWordArr, setcorrectWordArr] = useState([]);
 
   const [lastTypedTime, setLastTypedTime] = useState(null);
