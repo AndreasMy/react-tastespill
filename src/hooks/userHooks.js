@@ -3,13 +3,8 @@ import { useContext } from 'react';
 import { UsersContext } from '../helpers/userData';
 
 const useUserHelpers = () => {
-  const {
-
-    users,
-    selectedUser,
-    userSelected,
-    storedScores,
-  } = useContext(UsersContext);
+  const { users, selectedUser, userSelected, storedScores } =
+    useContext(UsersContext);
 
   const getFilteredUsers = () => {
     const userStats = sortUserByScore();
@@ -20,6 +15,11 @@ const useUserHelpers = () => {
           user.userName === selectedUser.userName && user.id === selectedUser.id
       );
     }
+    return userStats;
+  };
+
+  const getFilteredUsersStats = () => {
+    const userStats = sortUserByScore();
     return userStats;
   };
 
@@ -40,7 +40,7 @@ const useUserHelpers = () => {
       const highScores = scores.reduce((a, b) => Math.max(a, b.userScore), 0);
       const userName = user.userName;
       const timesPlayed = scores.length;
-      const color = user.userColor
+      const color = user.userColor;
 
       return {
         id: user.id,
@@ -48,10 +48,10 @@ const useUserHelpers = () => {
         highScore: highScores,
         userName: userName,
         timesPlayed: timesPlayed,
-        userColor: color
+        userColor: color,
       };
     });
-    //console.log(userStatsArray);
+    console.log(userStatsArray);
     return userStatsArray;
   };
 
@@ -72,7 +72,7 @@ const useUserHelpers = () => {
   };
 
   return {
-
+    getFilteredUsersStats,
     getFilteredUsers,
     filterScoresByUser,
     sendOBJToStorage,

@@ -2,7 +2,7 @@
 import { useEffect,  } from "react";
 
 const Timer = ({ setGameOver, setGameStart, timeLeft, setTimeLeft }) => {
-  const initialTime = 300;
+  const initialTime = 15;
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -23,7 +23,7 @@ const Timer = ({ setGameOver, setGameStart, timeLeft, setTimeLeft }) => {
 
   return (
     <div>
-      <p>{timeLeft}</p>
+      <p className="game-timer">{timeLeft}</p>
     </div>
   );
 };

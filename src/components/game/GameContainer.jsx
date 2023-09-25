@@ -9,6 +9,7 @@ import useUserHelpers from '../../hooks/userHooks';
 import { Game } from './GamePage';
 import { GameEntry } from './EntryPage';
 import { PlayerScoreList } from './ScoreList';
+import HighScoreList from '../users/HighScoreList';
 
 const GameContainer = () => {
   const { selectedUser, setTotalScore, setStoredScores, gameStart } =
@@ -72,22 +73,27 @@ const GameContainer = () => {
             timeLeft={timeLeft}
             setTimeLeft={setTimeLeft}
             setGameOver={setGameOver}
-
           />
         </>
       ) : (
-        <>
-          <GameEntry
-            setLastTypedTime={setLastTypedTime}
-    
-            setShuffledWords={setShuffledWords}
-          />
-          <PlayerScoreList
-            filterScoresByUser={filterScoresByUser}
-            setGameOver={setGameOver}
-            gameOver={gameOver}
-          />
-        </>
+        <div className='game-entry-container'>
+          <div className='game-col'>
+            <PlayerScoreList
+              filterScoresByUser={filterScoresByUser}
+              setGameOver={setGameOver}
+              gameOver={gameOver}
+            />
+          </div>
+          <div className='game-entry-content'>
+            <GameEntry
+              setLastTypedTime={setLastTypedTime}
+              setShuffledWords={setShuffledWords}
+            />
+          </div>
+          <div className='game-col'>
+            <HighScoreList />
+          </div>
+        </div>
       )}
     </>
   );

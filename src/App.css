@@ -3,7 +3,7 @@
 @import url(./components/users/styleUsers.css);
 @import url(./components/topics/styleTopicButton.css);
 @import url(./components/users/styleUserScrollbar.css);
-
+@import url(./components/game/styleGameScrollbar.css);
 
 label,
 h1,

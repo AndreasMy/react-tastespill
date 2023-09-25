@@ -19,14 +19,13 @@ export const Game = ({
   timeLeft, // Added
   setTimeLeft, // Added
   setGameOver, // Added
-   // Added
+  // Added
 }) => {
   const [inputValue, setInputValue] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [timeDifference, setTimeDifference] = useState(null);
 
-  const {  setGameStart } =
-  useContext(UsersContext);
+  const { setGameStart } = useContext(UsersContext);
 
   useEffect(() => {
     if (correctWordArr.length % 3 === 0 && correctWordArr.length !== 0) {
@@ -89,7 +88,7 @@ export const Game = ({
           setScore={setScore}
         />
       </div>
-      <div className='game-col game-input-container'>
+      <div className=' game-input-container'>
         <div className='g-input-container'>
           <DisplayWord
             shuffledWords={shuffledWords}

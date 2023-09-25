@@ -14,7 +14,7 @@
 }
 
 .topic-header {
-  margin: 0 0 10px 0;
+  margin: 0 0 12px 0;
 }
 
 .topic-btn {
@@ -43,4 +43,10 @@
   min-width: 100%;
   min-height: 100%;
   width: 100%;
+}
+
+.topic-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

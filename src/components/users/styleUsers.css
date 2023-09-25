@@ -45,9 +45,9 @@ p {
 .user-select-container {
   display: flex;
   justify-content: center;
-  margin: 25px 0;
+
   width: 100%;
-  min-height: 40vh;
+
 }
 
 .nav-button-container {

@@ -22,11 +22,14 @@ export const GameInput = ({
   }
 
   return (
-    <div>
+    <>
       <form onSubmit={(e) => e.preventDefault()}>
         <input
+          className='game-input'
           type='text'
           value={inputValue}
+          placeholder='...'
+          autoFocus
           onChange={(e) => {
             const newValue = e.target.value.replace(/ /g, '');
             setInputValue(newValue);
@@ -38,6 +41,6 @@ export const GameInput = ({
           }}
         />
       </form>
-    </div>
+    </>
   );
 };
