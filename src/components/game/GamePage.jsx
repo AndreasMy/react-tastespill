@@ -2,6 +2,8 @@
 import { useState, useEffect, useContext } from 'react';
 
 import { UsersContext } from '../../helpers/userData';
+import { TopicContext } from '../../App';
+import { shuffleArray } from '../../helpers/utils';
 
 import { GameInput } from './Inputs';
 import { DisplayWord } from './DisplayWord';
@@ -11,6 +13,7 @@ import Timer from './Timer';
 export const Game = ({
   lastTypedTime,
   setLastTypedTime,
+  setShuffledWords,
   shuffledWords,
   score,
   setScore,
@@ -26,6 +29,24 @@ export const Game = ({
   const [timeDifference, setTimeDifference] = useState(null);
 
   const { setGameStart } = useContext(UsersContext);
+  const { selectedTopic } = useContext(TopicContext);
+
+  const [needsReshuffling, setNeedsReshuffling] = useState(false);
+
+  useEffect(() => {
+    if (currentIndex === shuffledWords.length - 1) {
+      setNeedsReshuffling(true);
+    }
+  }, [currentIndex, shuffledWords]);
+
+  useEffect(() => {
+    if (needsReshuffling) {
+      const shuffledArray = shuffleArray(selectedTopic.words);
+      setShuffledWords(shuffledArray);
+      setNeedsReshuffling(false);
+      setCurrentIndex(0);
+    }
+  }, [needsReshuffling, selectedTopic.words, setShuffledWords]);
 
   useEffect(() => {
     if (correctWordArr.length % 3 === 0 && correctWordArr.length !== 0) {

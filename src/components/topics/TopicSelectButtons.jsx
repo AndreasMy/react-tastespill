@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useState } from 'react';
-export const TopicContext = React.createContext();
+import { useContext, useState } from 'react';
+import { TopicContext } from '../../App';
 
 const TopicSelection = () => {
   const { topics, setSelectedTopic } = useContext(TopicContext);

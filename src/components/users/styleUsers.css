@@ -31,7 +31,7 @@ p {
 .user-select-list {
   display: flex;
   flex-direction: column;
-  max-width: 580px;
+  max-width: 600px;
   max-height: 60vh;
   width: 100%;
   overflow-x: hidden;

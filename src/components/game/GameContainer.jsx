@@ -66,6 +66,7 @@ const GameContainer = () => {
             lastTypedTime={lastTypedTime}
             setLastTypedTime={setLastTypedTime}
             shuffledWords={shuffledWords}
+            setShuffledWords={setShuffledWords}
             score={score}
             setScore={setScore}
             correctWordArr={correctWordArr}

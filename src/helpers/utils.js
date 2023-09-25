@@ -16,3 +16,7 @@ export function shuffleArray(array) {
 
   return shuffledArray;
 }
+
+export const reShuffleArray = () => {
+
+}

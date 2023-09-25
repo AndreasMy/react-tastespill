@@ -1,7 +1,7 @@
 import '../users/styleUsers.css';
 
 import { useContext } from 'react';
-import { TopicContext } from '../topics/TopicSelection';
+import { TopicContext } from '../../App';
 
 const Footer = () => {
   const { selectedTopic } = useContext(TopicContext);

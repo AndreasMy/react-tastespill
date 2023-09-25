@@ -37,10 +37,8 @@
   padding: 0;
 }
 
-
 .back-button:disabled {
-    cursor: default;
-    background-color: rgb(64, 69, 73);
-    color: rgb(121, 118, 114);
-  }
-  
+  cursor: default;
+  background-color: rgb(64, 69, 73);
+  color: rgb(121, 118, 114);
+}

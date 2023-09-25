@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { TopicContext } from '../topics/TopicSelection';
+import { TopicContext } from '../../App';
 import { UsersContext } from '../../helpers/userData';
 
 const BackButton = () => {

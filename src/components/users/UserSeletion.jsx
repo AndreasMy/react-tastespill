@@ -2,7 +2,7 @@
 import { useContext } from 'react';
 import { UsersContext } from '../../helpers/userData';
 import useUserHelpers from '../../hooks/userHooks';
-import UserBanner from './UserBanner';
+import UserBanner from '../topics/TopicSelectPage';
 //import UserHighScore from '../game/HighScore';
 
 export const UserSelectButton = () => {

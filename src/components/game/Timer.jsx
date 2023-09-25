@@ -28,6 +28,4 @@ const Timer = ({ setGameOver, setGameStart, timeLeft, setTimeLeft }) => {
   );
 };
 
-
-
 export default Timer;

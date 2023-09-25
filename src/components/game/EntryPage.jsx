@@ -3,7 +3,7 @@ import './styleGame.css';
 import { useContext } from 'react';
 import { shuffleArray } from '../../helpers/utils';
 
-import { TopicContext } from '../topics/TopicSelection';
+import { TopicContext } from '../../App';
 import { UsersContext } from '../../helpers/userData';
 
 export const GameEntry = ({

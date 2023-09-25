@@ -1,7 +1,7 @@
-import { TopicContext } from '../topics/TopicSelection';
+import { TopicContext } from '../../App';
 import { useContext } from 'react';
 
-import TopicSelection from '../topics/TopicSelection';
+import TopicSelection from './TopicSelectButtons';
 import GameContainer from '../game/GameContainer';
 
 const UserBanner = () => {

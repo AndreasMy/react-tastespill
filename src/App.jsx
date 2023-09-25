@@ -5,18 +5,18 @@ import topics from './data/elementData';
 
 import { getFromStorage } from './helpers/localStorage';
 import { UsersContext } from './helpers/userData.js';
-import { TopicContext } from './components/topics/TopicSelection';
+
 
 import HomePage from './components/users/HomePage';
 // import MainContainer from './components/users/MainContainer';
-
+export const TopicContext = React.createContext();
 export const TimerContext = React.createContext();
 
 function App() {
   const [gameStart, setGameStart] = useState(false);
 
   const [selectedTopic, setSelectedTopic] = useState(null);
-  
+
   const [userSelected, setUserSelected] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [userName, setUserName] = useState('');
